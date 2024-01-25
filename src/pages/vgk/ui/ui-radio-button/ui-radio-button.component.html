@@ -1,0 +1,5 @@
+<mat-radio-group [(ngModel)]="selectedValue" (change)="onRadioChange()"  aria-label="Select an option">
+  <mat-radio-button *ngFor="let option of options" [value]="option.value">
+  {{ option.label }}
+  </mat-radio-button>
+</mat-radio-group>

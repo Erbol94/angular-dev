@@ -12,7 +12,6 @@ export const httpInterceptor: HttpInterceptorFn = (req, next) => {
     next: (value) => {
       if (value) {
         const csrfToken = storageService.getCsrfToken();
-        console.log(csrfToken);
         if (csrfToken !== null) {
           req = req.clone({
             setHeaders: {
