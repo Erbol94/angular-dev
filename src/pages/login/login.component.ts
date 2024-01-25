@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+  value = '';
   loginForm!: FormGroup;
   errorMessage: string = '';
 

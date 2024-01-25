@@ -1,1 +1,53 @@
-<p>header works!</p>
+
+<mat-toolbar >
+  <!--      <button (click)="navbarComponent.drawer.toggle()" mat-icon-button>-->
+  <!--        <mat-icon>menu</mat-icon>-->
+  <!--      </button>-->
+<!--      <span>{{title}}</span>-->
+  <span class="example-spacer"></span>
+  <button mat-icon-button >
+    <mat-icon matBadge="" aria-hidden="false" matBadgeColor="warn">home</mat-icon>
+  </button>
+  <button mat-icon-button >
+    <mat-icon matBadge="" aria-hidden="false" matBadgeColor="warn">sunny</mat-icon>
+  </button>
+  <button mat-icon-button >
+    <mat-icon matBadge="" aria-hidden="false" matBadgeColor="warn">notifications_active</mat-icon>
+  </button>
+  <button mat-icon-button >
+    <mat-icon matBadge="" aria-hidden="false" matBadgeColor="warn">error</mat-icon>
+  </button>
+  <button mat-icon-button [matMenuTriggerFor]="menuProfile" aria-label="Example icon-button with a menu">
+    <mat-icon>account_circle</mat-icon>
+  </button>
+  <mat-menu #menuProfile="matMenu">
+    <button mat-menu-item >
+      <mat-icon>manage_accounts</mat-icon>
+      <span>Аккаунт</span>
+    </button>
+    <button mat-menu-item disabled>
+      <mat-icon>voicemail</mat-icon>
+      <span>Настройки</span>
+    </button>
+    <button mat-menu-item (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      <span>Выйти</span>
+    </button>
+  </mat-menu>
+  <button mat-icon-button [matMenuTriggerFor]="menuLanguage" aria-label="Example icon-button with a menu">
+    <mat-icon><span class="material-symbols-outlined">
+  language
+  </span></mat-icon>
+  </button>
+  <mat-menu #menuLanguage="matMenu">
+    <mat-radio-group
+      aria-labelledby="lang-radio-group-label"
+      class="lang-radio-group"
+      [(ngModel)]="favoriteSeason">
+      @for (language of seasons; track language) {
+      <mat-radio-button class="example-radio-button" [value]="language">{{language}}</mat-radio-button>
+      }
+    </mat-radio-group>
+  </mat-menu>
+</mat-toolbar>
+
