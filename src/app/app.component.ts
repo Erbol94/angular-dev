@@ -5,6 +5,9 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {FormsModule} from "@angular/forms";
 import {MatListModule} from "@angular/material/list";
+import {MatMenuModule} from "@angular/material/menu";
+import {MatBadgeModule} from "@angular/material/badge";
+import {MatRadioModule} from '@angular/material/radio';
 import {CommonModule} from "@angular/common";
 import {HeaderComponent} from "../widgets/header/header.component";
 import {NavbarComponent} from "../widgets/navbar/navbar.component";
@@ -12,9 +15,7 @@ import {Router, RouterOutlet} from "@angular/router";
 import {FooterComponent} from "../widgets/footer/footer.component";
 import {AuthService} from "../shared/services/auth.service";
 import {StorageService} from "../shared/services/storage.service";
-import {MatMenuModule} from "@angular/material/menu";
-import {MatBadgeModule} from "@angular/material/badge";
-import {MatRadioModule} from '@angular/material/radio';
+
 
 @Component({
   selector: 'app-root',

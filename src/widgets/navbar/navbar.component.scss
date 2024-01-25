@@ -51,3 +51,13 @@ mat-drawer-container {
   height: 1.425rem!important;
   width: 1.425rem!important;
 }
+.expanded {
+  padding: 100px 0px 0px 0px;
+  transition: all 500ms ease-in-out;
+}
+
+.collapsed {
+  padding: 100px 0px 0px 0px;
+  width: 65px;
+  transition: all 500ms ease-in-out;
+}

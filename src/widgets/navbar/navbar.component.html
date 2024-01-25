@@ -1,22 +1,35 @@
-<mat-drawer-container autosize>
-<mat-drawer #drawer opened="true" mode="side" position="start" (mouseenter)="openDrawer()" (mouseleave)="closeDrawer()"  style="">
-  <mat-nav-list  [ngClass]="{'expanded': isDrawerExpanded, 'collapsed': !isDrawerExpanded}">
-<mat-list-item>
-  <button routerLink="/" mat-button><mat-icon class="mat-icon">home</mat-icon><div>Домой</div></button>
-</mat-list-item>
-<mat-list-item>
-  <button routerLink="/" mat-button><mat-icon class="mat-icon">sunny</mat-icon>Режим</button>
-</mat-list-item>
-<mat-list-item>
-  <button routerLink="/" mat-button><mat-icon class="mat-icon">notifications_active</mat-icon> Регистрация ТС</button>
-</mat-list-item>
-<mat-list-item>
-  <button routerLink="" mat-button><mat-icon class="mat-icon">error</mat-icon> Таблицы</button>
-</mat-list-item>
-<mat-list-item>
-  <button mat-button><mat-icon class="mat-icon">account_circle</mat-icon> Настройка</button>
-</mat-list-item>
-
+<mat-drawer #drawer opened="true" mode="side" position="start" (mouseenter)="openDrawer()" (mouseleave)="closeDrawer()"
+            style="">
+  <mat-nav-list [ngClass]="{'expanded': isDrawerExpanded, 'collapsed': !isDrawerExpanded}">
+    <mat-list-item>
+      <button routerLink="/" mat-button>
+        <mat-icon class="mat-icon">home</mat-icon>
+        <div>Домой</div>
+      </button>
+    </mat-list-item>
+    <mat-list-item>
+      <button routerLink="/" mat-button>
+        <mat-icon class="mat-icon">sunny</mat-icon>
+        Режим
+      </button>
+    </mat-list-item>
+    <mat-list-item>
+      <button routerLink="/" mat-button>
+        <mat-icon class="mat-icon">notifications_active</mat-icon>
+        Регистрация ТС
+      </button>
+    </mat-list-item>
+    <mat-list-item>
+      <button routerLink="" mat-button>
+        <mat-icon class="mat-icon">error</mat-icon>
+        Таблицы
+      </button>
+    </mat-list-item>
+    <mat-list-item>
+      <button mat-button>
+        <mat-icon class="mat-icon">account_circle</mat-icon>
+        Настройка
+      </button>
+    </mat-list-item>
   </mat-nav-list>
 </mat-drawer>
-</mat-drawer-container>
