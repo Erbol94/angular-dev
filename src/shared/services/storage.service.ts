@@ -12,27 +12,28 @@ export class StorageService {
     false
   );
   constructor() {
-    const token = this.getCsrfToken();
+    const token = this.getToken();
     if (token) {
-      this.updateCsrfToken(true);
+      this.updateToken(true);
     }
   }
 
-  getCsrfToken(): string | null {
+  getToken(): string | null {
     return localStorage.getItem(constants.CURRENT_TOKEN);
   }
 
-  setCsrfToken(token: any): void {
-    this.updateCsrfToken(true);
-    localStorage.setItem(constants.CURRENT_TOKEN, token);
+  setToken(token: any): void {
+    const credentialsBase64 = btoa(`${token.username}:${token.password}`);
+    this.updateToken(true);
+    localStorage.setItem(constants.CURRENT_TOKEN, credentialsBase64);
   }
 
-  updateCsrfToken(status: boolean) {
+  updateToken(status: boolean) {
     this.isAuthentication.next(status);
   }
 
-  removeCsrfToken() {
-    this.updateCsrfToken(false);
+  removeToken() {
+    this.updateToken(false);
     localStorage.removeItem(constants.CURRENT_TOKEN);
   }
 }

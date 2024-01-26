@@ -1,8 +1,4 @@
 <mat-toolbar class="card-header">
-  <!--      <button (click)="navbarComponent.drawer.toggle()" mat-icon-button>-->
-  <!--        <mat-icon>menu</mat-icon>-->
-  <!--      </button>-->
-<!--      <span>{{title}}</span>-->
   <span class="example-spacer"></span>
   <button mat-icon-button >
     <mat-icon matBadge="" aria-hidden="false" matBadgeColor="warn">home</mat-icon>
@@ -28,10 +24,12 @@
       <mat-icon>voicemail</mat-icon>
       <span>Настройки</span>
     </button>
-    <button mat-menu-item (click)="logout()">
-      <mat-icon>logout</mat-icon>
-      <span>Выйти</span>
-    </button>
+    @if (isLoggedIn) {
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        <span>Выйти</span>
+      </button>
+    }
   </mat-menu>
   <button mat-icon-button [matMenuTriggerFor]="menuLanguage" aria-label="Example icon-button with a menu">
     <mat-icon><span class="material-symbols-outlined">

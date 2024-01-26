@@ -2,11 +2,13 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from './auth.service';
+import { StorageService } from './storage.service';
 
 describe('AuthService', () => {
   let service: AuthService;
   let httpTestingController: HttpTestingController;
   let cookieService: CookieService;
+  let storageService: StorageService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -31,7 +33,10 @@ describe('AuthService', () => {
     const username = 'admin';
     const password = 'admin';
 
-    service.login(username, password).subscribe(response => {
+    service.onLogin({
+      username,
+      password,
+    }).subscribe(response => {
       expect(response).toBeTruthy();
       // Другие проверки, если необходимо
     });
@@ -46,18 +51,20 @@ describe('AuthService', () => {
   it('should call logout and delete CSRF-TOKEN cookie', () => {
     spyOn(cookieService, 'delete');
 
-    service.logout();
+    service.onLogout();
 
     expect(localStorage.getItem('user')).toBeFalsy();
-    expect(cookieService.delete).toHaveBeenCalledWith('CSRF-TOKEN');
+    expect(cookieService.delete).toHaveBeenCalledWith('AUTH_TOKEN');
   });
 
   it('should check if user is authenticated', () => {
     spyOn(cookieService, 'get').and.returnValue('fake-csrf-token');
 
-    const isAuthenticated = service.isAuthenticated();
+    const isAuthenticated = storageService.isAuthentication.subscribe(
+      (value) => value
+    );
 
     expect(isAuthenticated).toBeTruthy();
-    expect(cookieService.get).toHaveBeenCalledWith('CSRF-TOKEN');
+    expect(cookieService.get).toHaveBeenCalledWith('AUTH_TOKEN');
   });
 });

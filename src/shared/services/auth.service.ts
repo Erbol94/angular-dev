@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
+import {HttpClient, HttpResponse} from "@angular/common/http";
 import {catchError, Observable, throwError} from "rxjs";
 import {map} from 'rxjs/operators';
 import {StorageService} from "./storage.service";
@@ -19,36 +19,33 @@ export class AuthService {
       .post<HttpResponse<any>>(`${apiEndpoint.AuthEndpoint.login}`, data, { observe: 'response' })
       .pipe(
         map((response) => {
-          if (response) {
-            const csrfToken: string | null = response.headers.get('X-CSRF-TOKEN');
-            if (response.ok) {
-              this.storageService.setCsrfToken(csrfToken);
-            }
+          if (response.ok) {
+            this.storageService.setToken(response.body);
           }
           return response;
         }),
         catchError((error) => {
-          const errorMessage = 'Неправильный логин или пароль. Пожалуйста, попробуйте еще раз.';
-          return throwError(() => new Error(errorMessage));
+          console.log(error);
+          const customError = {
+            message: 'Произошла ошибка в аутентификации.',
+            originalError: error || '',
+          };
+          return throwError(() => customError);
         })
       );
   }
 
   onLogout() {
-    this.storageService.removeCsrfToken();
+    this.storageService.removeToken();
+    window.location.reload();
   }
 
+
   getData(): Observable<any> {
-
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'X-CSRF-TOKEN': 'e781f25a61e54298bd0ced8b987dccc9'
-    });
-
-    console.log(headers)
-
     // Отправка запроса с установленным заголовком
-    return this.http.get<any>('http://192.168.0.82:8080/smart-customs/ws/meta/fields/com.axelor.apps.registration.db.Vgk', { headers });
+    return this.http.get<any>('http://192.168.0.82:8080/smart-customs/ws/meta/fields/com.axelor.apps.registration.db.Vgk', {
+      observe: 'response',
+    });
   }
 
 }
