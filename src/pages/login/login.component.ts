@@ -34,7 +34,7 @@ export class LoginComponent {
           this.router.navigate(['/']);
         },
         error: (err) => {
-          this.errorMessage = err;
+          this.errorMessage = err.originalError || err.message;
         }
       });
     } else {

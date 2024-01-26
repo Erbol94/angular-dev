@@ -18,5 +18,5 @@ import { FooterComponent } from "../widgets/footer/footer.component";
 })
 
 export class AppComponent {
-
+  title = 'smart-customs';
 }

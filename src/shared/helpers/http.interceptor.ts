@@ -11,13 +11,10 @@ export const httpInterceptor: HttpInterceptorFn = (req, next) => {
   storageService.isAuthentication.subscribe({
     next: (value) => {
       if (value) {
-        const csrfToken = storageService.getCsrfToken();
-        if (csrfToken !== null) {
-          req = req.clone({
-            setHeaders: {
-              'X-CSRF-TOKEN': csrfToken,
-            },
-          });
+        const token = storageService.getToken();
+        if (token) {
+          const headers = req.headers.set('Authorization', `Basic ${token}`);
+          req = req.clone({ headers });
         }
       }
     },
@@ -25,12 +22,12 @@ export const httpInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(req).pipe(
     catchError((e: HttpErrorResponse) => {
-      if (e.status === 401) {
-        storageService.removeCsrfToken();
-        router.navigate(['']);
-      }
       const error = e.error?.error?.message || e.statusText;
-      return throwError(() => error);
+      if (e.status === 401) {
+        storageService.removeToken();
+        return throwError(() => 'Неправильный логин или пароль. Пожалуйста, попробуйте еще раз.');
+      }
+      return throwError(() => 'Произошла ошибка при выполнении запроса ' + error);
     })
   );
 };
