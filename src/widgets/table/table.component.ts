@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input, ViewChild, inject} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, Input, ViewChild, inject} from '@angular/core';
 import {MatPaginator, MatPaginatorModule, PageEvent} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { NgFor, NgForOf } from '@angular/common';
@@ -17,7 +17,11 @@ import { NgIf } from '@angular/common';
 export class TableComponent implements AfterViewInit {
   @Input() displayedColumns: any[] = [];
   @Input() dataSource!: MatTableDataSource<any>;
+
+  //Принимает параметры от родителя
+  filteredSource: MatTableDataSource<any>;
   @Input() filterValue: string = '' ;
+  @Input() statusSelect!: number | undefined;
 
   @Input() length: number | undefined;
   @Input() pageSize: number | undefined;
@@ -31,20 +35,80 @@ export class TableComponent implements AfterViewInit {
 
   service: FakeApiService = inject(FakeApiService);
 
-  constructor(){}
+  filterParams = {
+    category: this.filterValue,
+    title: '',
+    id: '',
+    price: null
+  };
+
+  constructor(private changeDetectorRef: ChangeDetectorRef){
+    this.filteredSource = this.dataSource
+  }
 
   ngAfterViewInit() {
     this.service.getData(this.url).subscribe((response) => {
       this.dataSource = new MatTableDataSource(response)
+      console.log(this.dataSource)
       this.dataSource.paginator = this.paginator;
-      if (this.filterValue) {
-        this.dataSource.filter = this.filterValue.trim().toLowerCase();
-      }
+      this.dataSource.filterPredicate = (data, filter: string) => {
+        // const filterObject = JSON.parse(filter);
+
+        // let match = true
+        // if (filterObject.category && !data.category.toLowerCase().includes(filterObject.category)) {
+        //   match = false;
+        // }
+        // if (filterObject.title && !data.title.toLowerCase().includes(filterObject.title)) {
+        //   match = false;
+        // }
+        // if (filterObject.id !== null && data.id !== filterObject.id) {
+        //   match = false;
+        // }
+        // if (filterObject.price !== null && data.price !== filterObject.price) {
+        //   match = false;
+        // }
+        // return match;
+
+        return data.title.trim().toLowerCase().includes(filter);
+      };
     })
     
   }
 
   
+
+  ngDoCheck(){
+    const filterObject = {
+      category: this.filterParams.category.trim().toLowerCase(),
+      title: this.filterParams.title.trim().toLowerCase(),
+      id: this.filterParams.id,
+      price: this.filterParams.price
+    };
+
+    if(filterObject){
+      setTimeout(()=> {
+        this.dataSource.filter = this.filterValue.trim().toLowerCase();
+        // this.dataSource.filter = JSON.stringify(filterObject);
+        
+      }, 1000)
+    }
+  }
+
+  // applyFiter(): void {
+  //   const filterObject = {};
+
+  //   // Добавляем фильтры только для не пустых значений
+  //   if (this.filterValue.trim() !== '') {
+  //     filterObject['title'] = this.filterValue.trim().toLowerCase();
+  //   }
+  //   if (this.statusSelect !== undefined) {
+  //     filterObject['id'] = this.statusSelect;
+  //   }
+
+  //   // Применяем фильтр к dataSource
+  //   this.dataSource.filter = JSON.stringify(filterObject);
+  // }
+ 
 
   handlePageEvent(event: PageEvent) {
     this.length = event.length;

@@ -21,6 +21,26 @@ export const routes: Routes = [
         path: 'test',
         component: TestComponent,
       },
+      {
+        path: 'vgk',
+        component: VgkComponent,
+        // canActivate: [unAuthGuard]
+      },
+      {
+        path: 'vgk/:id',
+        component: VgkViewComponent,
+        // canActivate: [unAuthGuard]
+      },
+      {
+        path: 'vgk-add',
+        component: VgkAddComponent,
+        // canActivate: [unAuthGuard]
+      },
+      {
+        path: 'idk',
+        component: IdkComponent,
+        // canActivate: [unAuthGuard]
+      },
     ],
   },
   {
@@ -28,26 +48,7 @@ export const routes: Routes = [
     component: LoginComponent,
     canActivate: [unAuthGuard]
   },
-  {
-    path: 'vgk',
-    component: VgkComponent,
-    // canActivate: [unAuthGuard]
-  },
-  {
-    path: 'vgk/:id',
-    component: VgkViewComponent,
-    // canActivate: [unAuthGuard]
-  },
-  {
-    path: 'vgk-add',
-    component: VgkAddComponent,
-    // canActivate: [unAuthGuard]
-  },
-  {
-    path: 'idk',
-    component: IdkComponent,
-    // canActivate: [unAuthGuard]
-  },
+  
   {
     path: '**',
     component: ErrorPageComponent,
