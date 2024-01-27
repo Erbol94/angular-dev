@@ -40,7 +40,6 @@ export class AuthService {
     window.location.reload();
   }
 
-
   getData(): Observable<any> {
     // Отправка запроса с установленным заголовком
     return this.http.get<any>('http://192.168.0.82:8080/smart-customs/ws/meta/fields/com.axelor.apps.registration.db.Vgk', {

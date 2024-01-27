@@ -10,14 +10,7 @@
         *matCellDef="let element"
         [routerLink]="['/vgk', element.id]"
       >
-        {{ element[column] }} 
-
-        <!-- <ng-container *ngIf="!column.isObject; else objectColumn">
-          {{ element[column.key] }}
-        </ng-container>
-        <ng-template #objectColumn>
-          {{ element[column.key][column.subKey] }}
-        </ng-template> -->
+        {{ element[column] }}
       </td>
     </ng-container>
 
@@ -27,7 +20,6 @@
 
   <mat-paginator
     (page)="handlePageEvent($event)"
-    [length]="length"
     [pageSize]="pageSize"
     [showFirstLastButtons]="showFirstLastButtons"
     [pageSizeOptions]="pageSizeOptions"

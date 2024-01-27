@@ -1,4 +1,4 @@
-import { Component, ViewChild, inject } from '@angular/core';
+import { Component, SimpleChanges, ViewChild, inject } from '@angular/core';
 import { TableComponent } from '../../widgets/table/table.component';
 import { FakeApiService } from './fake-api.service';
 import { MatTableDataSource } from '@angular/material/table';
@@ -14,7 +14,9 @@ import { NgIf } from '@angular/common';
 import { UiSelectComponent } from './ui/ui-select/ui-select.component';
 import { UiDatepickerComponent } from './ui/ui-datepicker/ui-datepicker.component';
 import { UiRadioButtonComponent } from './ui/ui-radio-button/ui-radio-button.component';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-vgk',
@@ -38,13 +40,12 @@ import { Router } from '@angular/router';
   styleUrl: './vgk.component.scss',
 })
 export class VgkComponent {
-
-  submit(): void {
+  
+  submit(): void {}
+  
+  constructor(private router: Router) {
+   
   }
-
-
-  constructor(private router: Router) {}
-
 
   // Переход на страницу vgk-add
   navigateToAddNew() {
@@ -65,17 +66,19 @@ export class VgkComponent {
 
   // Таблица и пагинация
   service: FakeApiService = inject(FakeApiService);
-
   dataList!: MatTableDataSource<any>;
   searchValue: string = '';
-
+  
+ 
   displayedColumns = [
     'id',
-    'title',
-    'price',
-    'category',
-    'description',
-    'image',
+    'trailerNumber',
+    'violation',
+    'weighingType',
+    'transportNumber',
+    'totalWeight',
+    'creatingDate',
+    'status',
   ];
 
   pageSize = 5;
@@ -83,8 +86,36 @@ export class VgkComponent {
   pageSizeOptions = [5, 10, 25];
   showFirstLastButtons = true;
 
-  urlProduct = 'https://fakestoreapi.com/products';
-
+  urlProduct = 'http://192.168.0.82:8080/smart-customs/ws/rest/com.axelor.apps.registration.db.Vgk/search';
+  
+  bodyProduct = {
+      fields: [
+        'weightSystem',
+        'trailerNumber',
+        'violation',
+        'weighingType',
+        'transportNumber',
+        'totalWeight',
+        'photo',
+        'creatingDate',
+        'status',
+        'customsDepartment',
+      ],
+      sortBy: ['id'],
+      data: {
+        _domain: null,
+        _domainContext: {
+          _id: null,
+          _model: 'com.axelor.apps.registration.db.Vgk',
+        },
+        operator: 'and',
+        criteria: [],
+      },
+      limit: 100,
+      offset: 0,
+      translate: true,
+    };
+  
   // Таблица и пагинация
 
   // UI-select
@@ -92,17 +123,15 @@ export class VgkComponent {
   statusOptions = [
     { value: 1, label: 'Активный' },
     { value: 2, label: 'Неактивный' },
-    { value: 3, label: 'В процессе' }
+    { value: 3, label: 'В процессе' },
   ];
 
   onSelectedValueChange(selectedValue: any) {
     this.selectedValue = selectedValue;
     console.log(this.selectedValue);
-
   }
 
   // UI-select
-
 
   // UI-datepicker
 
@@ -137,19 +166,5 @@ export class VgkComponent {
 
   // UI-radio-button
 
-
-  // Фильтрация 
-  // filteredInput(text: string):void {
-  //   if(!text) {
-  //     return 
-  //   }else {
-  //       return this.dataList.filter((data) => data?.title.toLowerCase().includes(text.toLowerCase()))
-  //   }
-  // }
-
-  // Фильтрация 
-
-
  
-
 }
