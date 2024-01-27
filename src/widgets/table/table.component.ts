@@ -23,7 +23,6 @@ export class TableComponent implements AfterViewInit {
   @Input() filterValue: string = '' ;
   @Input() statusSelect!: number | undefined;
 
-  @Input() length: number | undefined;
   @Input() pageSize: number | undefined;
   @Input() pageIndex: number | undefined;
   @Input() pageSizeOptions: number[] = [];
@@ -49,7 +48,6 @@ export class TableComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.service.getData(this.url).subscribe((response) => {
       this.dataSource = new MatTableDataSource(response)
-      console.log(this.dataSource)
       this.dataSource.paginator = this.paginator;
       this.dataSource.filterPredicate = (data, filter: string) => {
         // const filterObject = JSON.parse(filter);
@@ -72,27 +70,27 @@ export class TableComponent implements AfterViewInit {
         return data.title.trim().toLowerCase().includes(filter);
       };
     })
-    
+
   }
 
-  
 
-  ngDoCheck(){
-    const filterObject = {
-      category: this.filterParams.category.trim().toLowerCase(),
-      title: this.filterParams.title.trim().toLowerCase(),
-      id: this.filterParams.id,
-      price: this.filterParams.price
-    };
 
-    if(filterObject){
-      setTimeout(()=> {
-        this.dataSource.filter = this.filterValue.trim().toLowerCase();
-        // this.dataSource.filter = JSON.stringify(filterObject);
-        
-      }, 1000)
-    }
-  }
+  // ngDoCheck(){
+  //   const filterObject = {
+  //     category: this.filterParams.category.trim().toLowerCase(),
+  //     title: this.filterParams.title.trim().toLowerCase(),
+  //     id: this.filterParams.id,
+  //     price: this.filterParams.price
+  //   };
+  //
+  //   if(filterObject){
+  //     setTimeout(()=> {
+  //       this.dataSource.filter = this.filterValue.trim().toLowerCase();
+  //       // this.dataSource.filter = JSON.stringify(filterObject);
+  //
+  //     }, 1000)
+  //   }
+  // }
 
   // applyFiter(): void {
   //   const filterObject = {};
@@ -108,10 +106,9 @@ export class TableComponent implements AfterViewInit {
   //   // Применяем фильтр к dataSource
   //   this.dataSource.filter = JSON.stringify(filterObject);
   // }
- 
+
 
   handlePageEvent(event: PageEvent) {
-    this.length = event.length;
     this.pageSize = event.pageSize;
     this.pageIndex = event.pageIndex;
   }

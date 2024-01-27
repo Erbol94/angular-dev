@@ -14,7 +14,9 @@ import { NgIf } from '@angular/common';
 import { UiSelectComponent } from './ui/ui-select/ui-select.component';
 import { UiDatepickerComponent } from './ui/ui-datepicker/ui-datepicker.component';
 import { UiRadioButtonComponent } from './ui/ui-radio-button/ui-radio-button.component';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import {BreadcrumbComponent} from "../../widgets/breadcrumb/breadcrumb.component";
+
 
 @Component({
   selector: 'app-vgk',
@@ -33,6 +35,7 @@ import { Router } from '@angular/router';
     UiSelectComponent,
     UiDatepickerComponent,
     UiRadioButtonComponent,
+    BreadcrumbComponent
   ],
   templateUrl: './vgk.component.html',
   styleUrl: './vgk.component.scss',
@@ -41,9 +44,15 @@ export class VgkComponent {
 
   submit(): void {
   }
+  constructor(private router: Router, private route: ActivatedRoute) {
+    console.log(this.route)
+    console.log(this.route.parent)
+  }
 
-
-  constructor(private router: Router) {}
+  //BreadCrumb
+  // route: ActivatedRoute = inject(ActivatedRoute);
+  routeConfig = this.route.routeConfig?.path
+  //BreadCrumb
 
 
   // Переход на страницу vgk-add
@@ -138,18 +147,18 @@ export class VgkComponent {
   // UI-radio-button
 
 
-  // Фильтрация 
+  // Фильтрация
   // filteredInput(text: string):void {
   //   if(!text) {
-  //     return 
+  //     return
   //   }else {
   //       return this.dataList.filter((data) => data?.title.toLowerCase().includes(text.toLowerCase()))
   //   }
   // }
 
-  // Фильтрация 
+  // Фильтрация
 
 
- 
+
 
 }

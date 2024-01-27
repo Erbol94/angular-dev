@@ -21,9 +21,13 @@ export const routes: Routes = [
         path: 'test',
         component: TestComponent,
       },
+
       {
         path: 'vgk',
         component: VgkComponent,
+        data: {
+          breadcrumb: 'vgkTest'
+        }
         // canActivate: [unAuthGuard]
       },
       {
@@ -48,7 +52,7 @@ export const routes: Routes = [
     component: LoginComponent,
     canActivate: [unAuthGuard]
   },
-  
+
   {
     path: '**',
     component: ErrorPageComponent,

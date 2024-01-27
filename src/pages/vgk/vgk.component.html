@@ -1,4 +1,5 @@
 <div class="container-fluid" >
+  <app-breadcrumb [routeConfig]="routeConfig"></app-breadcrumb>
   <div class="row mt-4 mb-4">
     <header class="col-md-12">
       <h5>Главная / Весогабаритный контроль</h5>
@@ -19,7 +20,7 @@
 
         <div class="btns-group col-md-4 d-flex justify-content-end">
           <button type="button" class="btn me-3" (click)="toggleElement()">
-            Фильтрация 
+            Фильтрация
             <svg
               [class]="rotateClass"
               style="margin-left: 10px;"
@@ -87,5 +88,5 @@
     [statusSelect]="selectedValue"
   ></app-table>
 
-  
+
 </div>
