@@ -77,7 +77,6 @@
   </mat-card>
 
   <app-table
-    [filterValue]="searchValue"
     [dataSource]="dataList"
     [displayedColumns]="displayedColumns"
     [pageIndex]="pageIndex"
@@ -86,6 +85,8 @@
     [showFirstLastButtons]="showFirstLastButtons"
     [url]="urlProduct"
     [statusSelect]="selectedValue"
+    [body]="bodyProduct"
+    [searchValue]="searchValue"
   ></app-table>
 
 

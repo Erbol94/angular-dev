@@ -11,13 +11,6 @@
         [routerLink]="['/vgk', element.id]"
       >
         {{ element[column] }}
-
-        <!-- <ng-container *ngIf="!column.isObject; else objectColumn">
-          {{ element[column.key] }}
-        </ng-container>
-        <ng-template #objectColumn>
-          {{ element[column.key][column.subKey] }}
-        </ng-template> -->
       </td>
     </ng-container>
 
