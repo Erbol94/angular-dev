@@ -9,7 +9,7 @@ export const unAuthGuard: CanActivateFn = (route, state) => {
   storageService.isAuthentication.subscribe({
     next: (value) => {
       if (value) {
-        router.navigate(['']);
+        router.navigateByUrl('').then(r => console.log(r));
       }
     },
   });
