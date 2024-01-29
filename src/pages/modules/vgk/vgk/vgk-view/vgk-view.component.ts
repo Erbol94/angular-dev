@@ -1,6 +1,7 @@
 import { VgkServiceService } from './../../../../../shared/services/vgk-service/vgk-service.service';
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import {VgkServiceService} from "../../../../../shared/services/vgk-service/vgk-service.service";
 
 @Component({
   selector: 'app-vgk-view',

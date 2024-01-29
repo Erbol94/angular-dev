@@ -16,8 +16,10 @@ import { UiDatepickerComponent } from './ui/ui-datepicker/ui-datepicker.componen
 import { UiRadioButtonComponent } from './ui/ui-radio-button/ui-radio-button.component';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { AuthService } from '../../../../shared/services/auth.service';
 
+import {AuthService} from "../../../../shared/services/auth.service";
+
+import {NgClass} from '@angular/common';
 @Component({
   selector: 'app-vgk',
   standalone: true,
@@ -35,6 +37,8 @@ import { AuthService } from '../../../../shared/services/auth.service';
     UiSelectComponent,
     UiDatepickerComponent,
     UiRadioButtonComponent,
+    NgClass,
+
   ],
   templateUrl: './vgk.component.html',
   styleUrl: './vgk.component.scss',
