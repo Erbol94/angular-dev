@@ -14,7 +14,7 @@ import {
 } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { NgFor, NgForOf } from '@angular/common';
-import { FakeApiService } from '../../pages/vgk/fake-api.service';
+import { FakeApiService } from '../../pages/modules/vgk/vgk/fake-api.service';
 import { RouterLink } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { MatSort } from '@angular/material/sort';

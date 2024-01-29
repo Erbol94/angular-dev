@@ -1,5 +1,5 @@
 import { Component, SimpleChanges, ViewChild, inject } from '@angular/core';
-import { TableComponent } from '../../widgets/table/table.component';
+import { TableComponent } from '../../../../widgets/table/table.component';
 import { FakeApiService } from './fake-api.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
@@ -16,7 +16,7 @@ import { UiDatepickerComponent } from './ui/ui-datepicker/ui-datepicker.componen
 import { UiRadioButtonComponent } from './ui/ui-radio-button/ui-radio-button.component';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { AuthService } from '../../shared/services/auth.service';
+import { AuthService } from '../../../../shared/services/auth.service';
 
 @Component({
   selector: 'app-vgk',
@@ -40,11 +40,11 @@ import { AuthService } from '../../shared/services/auth.service';
   styleUrl: './vgk.component.scss',
 })
 export class VgkComponent {
-  
+
   submit(): void {}
-  
+
   constructor(private router: Router) {
-   
+
   }
 
   // Переход на страницу vgk-add
@@ -68,8 +68,8 @@ export class VgkComponent {
   service: FakeApiService = inject(FakeApiService);
   dataList!: MatTableDataSource<any>;
   searchValue: string = '';
-  
- 
+
+
   displayedColumns = [
     'id',
     'trailerNumber',
@@ -87,7 +87,7 @@ export class VgkComponent {
   showFirstLastButtons = true;
 
   urlProduct = 'http://192.168.0.82:8080/smart-customs/ws/rest/com.axelor.apps.registration.db.Vgk/search';
-  
+
   bodyProduct = {
       fields: [
         'weightSystem',
@@ -115,7 +115,7 @@ export class VgkComponent {
       offset: 0,
       translate: true,
     };
-  
+
   // Таблица и пагинация
 
   // UI-select
@@ -166,5 +166,5 @@ export class VgkComponent {
 
   // UI-radio-button
 
- 
+
 }
