@@ -1,4 +1,4 @@
-import { Component, ViewChild, inject } from '@angular/core';
+import {Component, ViewChild, inject, Inject} from '@angular/core';
 import { TableComponent } from '../../widgets/table/table.component';
 import { FakeApiService } from './fake-api.service';
 import { MatTableDataSource } from '@angular/material/table';
@@ -15,9 +15,8 @@ import { UiSelectComponent } from './ui/ui-select/ui-select.component';
 import { UiDatepickerComponent } from './ui/ui-datepicker/ui-datepicker.component';
 import { UiRadioButtonComponent } from './ui/ui-radio-button/ui-radio-button.component';
 import { ActivatedRoute, Router } from '@angular/router';
-
 import { AuthService } from '../../shared/services/auth.service';
-
+import {NgClass} from '@angular/common';
 @Component({
   selector: 'app-vgk',
   standalone: true,
@@ -35,9 +34,11 @@ import { AuthService } from '../../shared/services/auth.service';
     UiSelectComponent,
     UiDatepickerComponent,
     UiRadioButtonComponent,
+    NgClass
   ],
   templateUrl: './vgk.component.html',
   styleUrl: './vgk.component.scss',
+
 })
 export class VgkComponent {
 
@@ -61,7 +62,6 @@ export class VgkComponent {
     this.isElementVisible = !this.isElementVisible;
     this.rotateClass = this.isElementVisible ? 'rotate-element' : '';
   }
-
   // скрыть и отркыть филтрацию
 
   // Таблица и пагинация

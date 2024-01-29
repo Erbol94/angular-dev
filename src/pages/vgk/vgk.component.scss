@@ -13,3 +13,25 @@ table {
 .rotate-element {
   transform: rotate(0.5turn);
 }
+// Стили для анимации
+.slide-down-enter {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.slide-down-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.slide-down-leave {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slide-down-leave-active {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.3s, transform 0.3s;
+}

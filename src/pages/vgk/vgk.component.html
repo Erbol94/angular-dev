@@ -1,5 +1,4 @@
 <div class="container-fluid" >
-  <app-breadcrumb [routeConfig]="routeConfig"></app-breadcrumb>
   <div class="row mt-4 mb-4">
     <header class="col-md-12">
       <h5>Главная / Весогабаритный контроль</h5>
@@ -45,27 +44,27 @@
     </div>
   </div>
 
-  <mat-card *ngIf="isElementVisible">
+  <mat-card *ngIf="isElementVisible" >
     <mat-card-content>
       <div class="container-fluid">
         <div class="row mb-3">
-          <div class="col-md-4">
+          <div class="col-lg-4 col-md-3 col-sm-2">
             <label class="mb-2">Статус</label>
             <app-ui-select [options]="statusOptions" (selectedValueChange)="onSelectedValueChange($event)"></app-ui-select>
           </div>
-          <div class="col-md-2">
+          <div class="col-xl-2 col-lg-3 col-md-3 col-sm-3">
             <label for="exampleFormControlInput1" class="form-label"
               >Выебрите дату:</label
             >
             <app-ui-datepicker label="Начало года" (selectedDateChange)="onStartDateChange($event)"></app-ui-datepicker>
           </div>
-          <div class="col-md-2">
+          <div class="col-xl-2 col-lg-3 col-md-3 col-sm-3">
             <label for="exampleFormControlInput1" class="form-label"
               >Выебрите дату:</label
             >
             <app-ui-datepicker label="Конец года" (selectedDateChange)="onEndDateChange($event)"></app-ui-datepicker>
           </div>
-          <div class="col-md-2">
+          <div class="col-lg-2 col-md-2 col-sm-2">
             <label class="mb-2">Время проезда:</label>
             <div class="d-flex justify-content-between align-items-center">
               <app-ui-radio-button [options]="options" (selectedValueChange)="onOptionChange($event)"></app-ui-radio-button>

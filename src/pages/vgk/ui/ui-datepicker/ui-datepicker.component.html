@@ -1,7 +1,16 @@
-<mat-form-field appearance="outline">
-    <mat-label>{{ label }}</mat-label>
-    <input matInput [matDatepicker]="picker" [formControl]="selectedDateControl" (dateChange)="onDateChange()" />
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
-  
+
+<!--<mat-form-field appearance="outline" class="datepicker-container">-->
+<!--    <mat-label>{{ label }}</mat-label>-->
+<!--    <input matInput [matDatepicker]="picker" [formControl]="selectedDateControl" (dateChange)="onDateChange()" />-->
+<!--    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
+<!--    <mat-datepicker #picker></mat-datepicker>-->
+<!--  </mat-form-field>-->
+
+<div class="input-group date" id="datepicker">
+  <input type="text" class="form-control custom-input" matInput [matDatepicker]="picker" [formControl]="selectedDateControl" (dateChange)="onDateChange()"/>
+          <span class="container-mat-datepicker bg-light d-block" style="height: 36px">
+           <mat-datepicker-toggle matSuffix [for]="picker" class="custom-toggle"></mat-datepicker-toggle>
+          </span>
+  <mat-datepicker #picker class="custom-datepicker"></mat-datepicker>
+</div>
+

@@ -1,1 +1,17 @@
-/* Пример стилей для изменения дизайна DatePicker подобно Bootstrap 5 */
+#datepicker {
+  height: 36px;
+
+  .custom-input,
+  .custom-toggle  {
+    height: 36px!important;
+  }
+  .custom-datepicker {
+    height: 100%;
+    font-size: 14px;
+
+  }
+  .container-mat-datepicker{
+    border: 1px solid #DEE2E6;
+    border-radius: 0px 6px 6px 0px;
+  }
+}
