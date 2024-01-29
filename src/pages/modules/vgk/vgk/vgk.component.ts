@@ -16,9 +16,9 @@ import { UiDatepickerComponent } from './ui/ui-datepicker/ui-datepicker.componen
 import { UiRadioButtonComponent } from './ui/ui-radio-button/ui-radio-button.component';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { AuthService } from '../../../../shared/services/auth.service';
 
-import { AuthService } from '../../shared/services/auth.service';
+import {AuthService} from "../../../../shared/services/auth.service";
+
 import {NgClass} from '@angular/common';
 @Component({
   selector: 'app-vgk',
@@ -37,7 +37,8 @@ import {NgClass} from '@angular/common';
     UiSelectComponent,
     UiDatepickerComponent,
     UiRadioButtonComponent,
-    NgClass
+    NgClass,
+
   ],
   templateUrl: './vgk.component.html',
   styleUrl: './vgk.component.scss',
@@ -70,7 +71,7 @@ export class VgkComponent {
   // Таблица и пагинация
   service: FakeApiService = inject(FakeApiService);
   dataList!: MatTableDataSource<any>;
-  searchValue: string = '';
+  trailerNumber: string = '';
 
 
   displayedColumns = [
