@@ -67,7 +67,7 @@ export class VgkComponent {
   // Таблица и пагинация
   service: FakeApiService = inject(FakeApiService);
   dataList!: MatTableDataSource<any>;
-  searchValue: string = '';
+  trailerNumber: string = '';
 
 
   displayedColumns = [
@@ -79,6 +79,9 @@ export class VgkComponent {
     'totalWeight',
     'creatingDate',
     'status',
+    'photo.fileName',
+    'customsDepartment.fullName',
+    'weightSystem.name'
   ];
 
   pageSize = 5;

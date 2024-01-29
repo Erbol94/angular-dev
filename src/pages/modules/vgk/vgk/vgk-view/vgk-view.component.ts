@@ -1,5 +1,5 @@
+import { VgkServiceService } from './../../../../../shared/services/vgk-service/vgk-service.service';
 import { Component, inject } from '@angular/core';
-import { VgkServiceService } from '../../../shared/services/vgk-service/vgk-service.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
