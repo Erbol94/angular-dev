@@ -1,8 +1,9 @@
 import { Component, ViewChild, inject } from '@angular/core';
+import { FakeApiService } from '../../vgk/vgk/fake-api.service';
 import {MatPaginator, MatPaginatorModule, PageEvent} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { NgFor, NgForOf } from '@angular/common';
-import { TableComponent } from '../../widgets/table/table.component';
+import { TableComponent } from '../../../../widgets/table/table.component';
 
 @Component({
   selector: 'app-idk',
@@ -13,10 +14,12 @@ import { TableComponent } from '../../widgets/table/table.component';
 })
 export class IdkComponent {
 
+  service: FakeApiService = inject(FakeApiService);
 
   dataList!: MatTableDataSource<Location>;
   displayedColumns = ['id', 'name','username', 'email' ];
 
+  length = 20;
   pageSize = 10;
   pageIndex = 0;
   pageSizeOptions = [5, 10, 25];

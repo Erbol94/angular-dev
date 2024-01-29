@@ -31,7 +31,7 @@ export class LoginComponent {
       this.authService.onLogin(this.loginForm.value).subscribe({
         next: () => {
           console.log('Authentication successful');
-          this.router.navigate(['/']);
+          this.router.navigateByUrl('/').then(r => console.log(r));
         },
         error: (err) => {
           this.errorMessage = err.originalError || err.message;
