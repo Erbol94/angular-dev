@@ -16,7 +16,6 @@ import { UiDatepickerComponent } from './ui/ui-datepicker/ui-datepicker.componen
 import { UiRadioButtonComponent } from './ui/ui-radio-button/ui-radio-button.component';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-vgk',
@@ -40,12 +39,9 @@ import { AuthService } from '../../shared/services/auth.service';
   styleUrl: './vgk.component.scss',
 })
 export class VgkComponent {
-  
   submit(): void {}
-  
-  constructor(private router: Router) {
-   
-  }
+
+  constructor(private router: Router) {}
 
   // Переход на страницу vgk-add
   navigateToAddNew() {
@@ -67,10 +63,8 @@ export class VgkComponent {
   // Таблица и пагинация
   service: FakeApiService = inject(FakeApiService);
   dataList!: MatTableDataSource<any>;
-  searchValue: string = '';
-  
- 
-  displayedColumns = [
+  trailerNumber: string = '';
+  displayedColumns:any = [
     'id',
     'trailerNumber',
     'violation',
@@ -79,43 +73,46 @@ export class VgkComponent {
     'totalWeight',
     'creatingDate',
     'status',
+    'photo.fileName',
+    'customsDepartment.fullName',
+    'weightSystem.name'
   ];
-
+  
   pageSize = 5;
   pageIndex = 0;
   pageSizeOptions = [5, 10, 25];
   showFirstLastButtons = true;
 
   urlProduct = 'http://192.168.0.82:8080/smart-customs/ws/rest/com.axelor.apps.registration.db.Vgk/search';
-  
+
   bodyProduct = {
-      fields: [
-        'weightSystem',
-        'trailerNumber',
-        'violation',
-        'weighingType',
-        'transportNumber',
-        'totalWeight',
-        'photo',
-        'creatingDate',
-        'status',
-        'customsDepartment',
-      ],
-      sortBy: ['id'],
-      data: {
-        _domain: null,
-        _domainContext: {
-          _id: null,
-          _model: 'com.axelor.apps.registration.db.Vgk',
-        },
-        operator: 'and',
-        criteria: [],
+    fields: [
+      'weightSystem',
+      'trailerNumber',
+      'violation',
+      'weighingType',
+      'transportNumber',
+      'totalWeight',
+      'photo',
+      'creatingDate',
+      'status',
+      'customsDepartment',
+    ],
+    sortBy: ['id'],
+    data: {
+      _domain: null,
+      _domainContext: {
+        _id: null,
+        _model: 'com.axelor.apps.registration.db.Vgk',
       },
-      limit: 100,
-      offset: 0,
-      translate: true,
-    };
-  
+      operator: 'and',
+      criteria: [],
+    },
+    limit: 50,
+    offset: 0,
+    translate: true,
+  };
+
   // Таблица и пагинация
 
   // UI-select
@@ -165,6 +162,30 @@ export class VgkComponent {
   }
 
   // UI-radio-button
-
- 
+}
+export interface Element {
+  
+  id: number;
+  creatingDate: string;
+  customsDepartment: {
+    fullName: string,
+    id: number
+  };
+  symbol: string;
+  photo: {
+    fileName: string,
+    id: number
+  };
+  status: string;
+  totalWeight: string;
+  trailerNumber: string;
+  transportNumber: string;
+  version: number;
+  violation: string;
+  weighingType: string;
+  weightSystem: {
+    id: number,
+    name: string
+  }
+  
 }

@@ -18,6 +18,8 @@ import { FakeApiService } from '../../pages/vgk/fake-api.service';
 import { RouterLink } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { MatSort } from '@angular/material/sort';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-table',
@@ -29,6 +31,8 @@ import { MatSort } from '@angular/material/sort';
     NgForOf,
     RouterLink,
     NgIf,
+    MatProgressSpinnerModule,
+    MatCheckboxModule
   ],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
@@ -38,8 +42,10 @@ export class TableComponent implements AfterViewInit {
   @Input() dataSource!: MatTableDataSource<any>;
 
   //Принимает параметры от родителя
-  filteredSource: MatTableDataSource<any>;
   @Input() statusSelect!: number | undefined;
+  @Input() startDate!: any;
+  @Input() endDate !: any;
+  @Input() selectedOption !: any;
 
   @Input() pageSize: number | undefined;
   @Input() pageIndex: number | undefined;
@@ -47,34 +53,36 @@ export class TableComponent implements AfterViewInit {
   @Input() showFirstLastButtons!: boolean | true;
   @Input() url!: string;
   @Input() body!: any;
-  @Input() searchValue!: string | '';
+  @Input() trailerNumber!: string | '';
+  displayedColumnsNew: any[] = [];
+
+  isLoading = false;
 
   // @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   service: FakeApiService = inject(FakeApiService);
 
-
-  constructor(private changeDetectorRef: ChangeDetectorRef) {
-    this.filteredSource = this.dataSource;
-  }
+  constructor() {}
 
   ngAfterViewInit() {
     this.fetchData();
   }
 
   fetchData(): void {
+    // this.isLoading = true;
     this.service.postData(this.url, this.body).subscribe((res) => {
       this.dataSource = new MatTableDataSource(res.data)
       this.dataSource.paginator = this.paginator
+      // this.isLoading = false
     })
   }
 
 
-  ngOnChanges(changes: SimpleChanges):void {
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes) {
-      const newValue = changes['searchValue'].currentValue;
-      this.body.data.criteria = newValue ? [{ fieldName: "trailerNumber", operator: "like", value:newValue }] : [];
+      const newValue = changes['trailerNumber'].currentValue;
+      this.body.data.criteria = newValue ? [{ fieldName: "trailerNumber", operator: "like", value: newValue }] : [];
       setTimeout(()=> {
         this.fetchData();
       }, 1000)
