@@ -127,14 +127,14 @@ export class VgkComponent {
   // UI-select
   selectedValue: any;
   statusOptions = [
-    { value: 1, label: 'Активный' },
-    { value: 2, label: 'Неактивный' },
-    { value: 3, label: 'В процессе' },
+    { value: 0, label: '' },
+    { value: 1, label: 'Офорлено' },
+    { value: 2, label: 'Не оформлено' },
   ];
 
   onSelectedValueChange(selectedValue: any) {
     this.selectedValue = selectedValue;
-    console.log(this.selectedValue);
+    // console.log(this.selectedValue);
   }
 
   // UI-select
