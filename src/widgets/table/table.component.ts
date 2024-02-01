@@ -32,7 +32,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     RouterLink,
     NgIf,
     MatProgressSpinnerModule,
-    MatCheckboxModule
+    MatCheckboxModule,
   ],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
@@ -71,23 +71,112 @@ export class TableComponent implements AfterViewInit {
 
   fetchData(): void {
     // this.isLoading = true;
-    this.service.postData(this.url, this.body).subscribe((res) => {
+    this.service.postData(this.url, this.body).subscribe((res: any) => {
+      res.data.forEach((item: any) => {
+        // return this.getStatusText(item.status);
+        item.status = this.getStatusText(item.status);
+        item.violation = this.getViolationText(item.violation)
+        item.weighingType = this.getWeightType(item.weighingType)
+      })
       this.dataSource = new MatTableDataSource(res.data)
       this.dataSource.paginator = this.paginator
       // this.isLoading = false
     })
   }
 
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes) {
-      const newValue = changes['trailerNumber'].currentValue;
-      this.body.data.criteria = newValue ? [{ fieldName: "trailerNumber", operator: "like", value: newValue }] : [];
-      setTimeout(()=> {
-        this.fetchData();
-      }, 1000)
+  getStatusText(status: string): string {
+    switch (status) {
+      case '1':
+        return 'Оформлено';
+      case '2':
+        return 'Не оформлено';
+      default:
+        return 'Неизвестный статус';
     }
   }
+
+  getViolationText(violation: string): string {
+    switch (violation) {
+      case '1':
+        return 'Нет нарушений';
+      case '2':
+        return 'Превышение по общей массе';
+      case '3':
+        return 'Превышение нагрузки на ось';
+      case '4':
+        return 'Превышение по общей массе и нагрузке на ось';
+      case '5':
+        return 'Превышение по габаритам';
+      case '6':
+        return 'Превышение по габаритам и нагрузке на ось';
+      case '7':
+        return 'Превышение по габаритам и общей массе';
+      case '8':
+        return 'Превышение по габаритам, общей массе и нагрузке на ось';
+      default:
+        return '';
+    }
+  }
+
+  getWeightType(type: string):string {
+    switch (type) {
+      case '1':
+        return 'Динамическое взвешивание';
+      case '2':
+        return 'Взвешивание в статике';
+      default:
+        return '';
+    }
+  }
+
+
+  // ngOnChanges(changes: SimpleChanges): void {
+  //   console.log(changes)
+  //   if (changes) {
+  //     const statusSelect = changes['statusSelect'].currentValue
+  //     const trailerNumber = changes['trailerNumber'].currentValue;
+  //     this.body.data.criteria = trailerNumber ? [{ fieldName: "trailerNumber", operator: "like", value: trailerNumber }] : [];
+  //     this.body.data.criteria = statusSelect ? [{ fieldName: "status", operator: "like", value: statusSelect }] : [];
+  //     setTimeout(()=> {
+  //       this.fetchData();
+  //     }, 1000)
+  //   }
+
+
+  // }
+  criteria: any[] = [];
+  timeout: any;
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes)
+    if (changes && (changes['statusSelect'] || changes['trailerNumber'])) {
+      const statusSelect = changes['statusSelect'] ? changes['statusSelect'].currentValue : null;
+      const trailerNumber = changes['trailerNumber'] ? changes['trailerNumber'].currentValue : null;
+
+      this.criteria = [];
+
+      if (trailerNumber) {
+        this.criteria.push({ fieldName: "trailerNumber", operator: "like", value: trailerNumber });
+      }
+
+      if (statusSelect) {
+        this.criteria.push({ fieldName: "status", operator: "like", value: statusSelect });
+      }
+
+      clearTimeout(this.timeout);
+      console.log(this.criteria)
+
+      this.timeout = setTimeout(() => {
+        this.body.data.criteria = this.criteria;
+
+        if (this.criteria.length > 0) {
+          this.fetchData();
+        }
+      }, 2000);
+    }
+  }
+
+
 
 
   handlePageEvent(event: PageEvent) {

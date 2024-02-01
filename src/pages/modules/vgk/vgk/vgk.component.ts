@@ -16,7 +16,6 @@ import { UiDatepickerComponent } from './ui/ui-datepicker/ui-datepicker.componen
 import { UiRadioButtonComponent } from './ui/ui-radio-button/ui-radio-button.component';
 import { ActivatedRoute, Router } from '@angular/router';
 
-
 import {AuthService} from "../../../../shared/services/auth.service";
 
 import {NgClass} from '@angular/common';
@@ -128,14 +127,14 @@ export class VgkComponent {
   // UI-select
   selectedValue: any;
   statusOptions = [
-    { value: 1, label: 'Активный' },
-    { value: 2, label: 'Неактивный' },
-    { value: 3, label: 'В процессе' },
+    { value: 0, label: '' },
+    { value: 1, label: 'Офорлено' },
+    { value: 2, label: 'Не оформлено' },
   ];
 
   onSelectedValueChange(selectedValue: any) {
     this.selectedValue = selectedValue;
-    console.log(this.selectedValue);
+    // console.log(this.selectedValue);
   }
 
   // UI-select

@@ -4,7 +4,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { DateAdapter, MAT_DATE_LOCALE, NativeDateAdapter } from '@angular/material/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms'; // Здесь исправлено
-import 'moment/locale/ru';
+// import 'moment/locale/ru';
 
 @Component({
   selector: 'app-ui-datepicker',
