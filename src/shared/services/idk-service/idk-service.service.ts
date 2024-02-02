@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
-export class IdkServiceService {
+export class VgkServiceService {
   constructor(private http: HttpClient) {}
 
   postData(url: string, body: object) {
@@ -33,7 +33,32 @@ export class IdkServiceService {
 
   bodyById = {
     fields: [
+      'euro',
+      'weightSystem',
+      'axles',
+      'modifierType',
+      'photos',
+      'modifierDate',
+      'transportNumber',
+      'prevVerID',
+      'vehicleTstk',
+      'trailerNumber',
+      'weighingType',
       'actNumber',
+      'photo',
+      'addInfo',
+      'updatedOn',
+      'creatingDate',
+      'overload',
+      'customsDepartment',
+      'transitViolations',
+      'violation',
+      'totalWeight',
+      'modifierName',
+      'category',
+      'recordingMethod',
+      'status',
+      'dimensions',
     ],
     related: {},
   };

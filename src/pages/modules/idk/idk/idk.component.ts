@@ -40,6 +40,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class IdkComponent {
 
+
   submit(): void {}
 
   constructor(private router: Router) {
@@ -53,7 +54,7 @@ export class IdkComponent {
   // Переход на страницу vgk-add
 
   // скрыть и отркыть филтрацию
-  isElementVisible: boolean = true;
+  isElementVisible: boolean = false;
   rotateClass: string = '';
 
   toggleElement() {
@@ -65,50 +66,50 @@ export class IdkComponent {
 
   // Таблица и пагинация
   service: FakeApiService = inject(FakeApiService);
-  dataList!: MatTableDataSource<any>;
+  dataSource!: MatTableDataSource<any>;
   trailerNumber: string = '';
 
 
   displayedColumns = [
     'id',
     'trailerNumber',
-    'violation',
-    'weighingType',
-    'transportNumber',
-    'totalWeight',
-    'creatingDate',
-    'status',
-    'photo.fileName',
+    'creationDateTime',
     'customsDepartment.fullName',
-    'weightSystem.name'
+    'idkSystem.name',
+    'lots',
+    'operStatus',
+    'sourceId',
+    'vehicleNumber',
+    'xrayStatus',
+    'xrayTrackNumber'
   ];
 
-  pageSize = 5;
+  pageSize = 8;
   pageIndex = 0;
   pageSizeOptions = [5, 10, 25];
-  showFirstLastButtons = true;
+  showFirstLastButtons = false;
 
   urlProduct = 'http://192.168.0.82:8080/smart-customs/ws/rest/com.axelor.apps.registration.db.IdkInspection/search';
 
   bodyProduct = {
     fields: [
-      'weightSystem',
-      'trailerNumber',
-      'violation',
-      'weighingType',
-      'transportNumber',
-      'totalWeight',
-      'photo',
-      'creatingDate',
-      'status',
-      'customsDepartment',
+      "sourceId",
+      "lots",
+      "xrayTrackNumber",
+      "trailerNumber",
+      "operStatus",
+      "vehicleNumber",
+      "xrayStatus",
+      "idkSystem",
+      "creationDateTime",
+      "customsDepartment"
     ],
     sortBy: ['id'],
     data: {
       _domain: null,
       _domainContext: {
         _id: null,
-        _model: 'com.axelor.apps.registration.db.Vgk',
+        _model: 'com.axelor.apps.registration.db.IdkInspection',
       },
       operator: 'and',
       criteria: [],
@@ -123,14 +124,14 @@ export class IdkComponent {
   // UI-select
   selectedValue: any;
   statusOptions = [
-    { value: 1, label: 'Активный' },
-    { value: 2, label: 'Неактивный' },
-    { value: 3, label: 'В процессе' },
+    { value: 0, label: '' },
+    { value: 1, label: 'Офорлено' },
+    { value: 2, label: 'Не оформлено' },
   ];
 
   onSelectedValueChange(selectedValue: any) {
     this.selectedValue = selectedValue;
-    console.log(this.selectedValue);
+    // console.log(this.selectedValue);
   }
 
   // UI-select
@@ -170,3 +171,4 @@ export class IdkComponent {
 
 
 }
+
