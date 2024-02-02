@@ -57,7 +57,7 @@ export class VgkComponent {
   // Переход на страницу vgk-add
 
   // скрыть и отркыть филтрацию
-  isElementVisible: boolean = true;
+  isElementVisible: boolean = false;
   rotateClass: string = '';
 
   toggleElement() {
@@ -69,7 +69,7 @@ export class VgkComponent {
 
   // Таблица и пагинация
   service: FakeApiService = inject(FakeApiService);
-  dataList!: MatTableDataSource<any>;
+  dataSource!: MatTableDataSource<any>;
   trailerNumber: string = '';
 
 
@@ -90,7 +90,7 @@ export class VgkComponent {
   pageSize = 5;
   pageIndex = 0;
   pageSizeOptions = [5, 10, 25];
-  showFirstLastButtons = true;
+  showFirstLastButtons = false;
 
   urlProduct = 'http://192.168.0.82:8080/smart-customs/ws/rest/com.axelor.apps.registration.db.Vgk/search';
 
