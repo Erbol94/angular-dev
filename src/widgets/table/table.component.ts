@@ -1,6 +1,5 @@
 import {
   AfterViewInit,
-  ChangeDetectorRef,
   Component,
   Input,
   SimpleChanges,
@@ -19,7 +18,9 @@ import { RouterLink } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { MatSort } from '@angular/material/sort';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { BubblePaginationDirective } from './bubble-pagination.directive';
+import { SelectionModel } from '@angular/cdk/collections';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-table',
@@ -33,13 +34,17 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     NgIf,
     MatProgressSpinnerModule,
     MatCheckboxModule,
+    BubblePaginationDirective,
   ],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
 })
 export class TableComponent implements AfterViewInit {
+
   @Input() displayedColumns: any[] = [];
-  @Input() dataSource!: MatTableDataSource<any>;
+  dataSource!: MatTableDataSource<any>;
+  selection!: SelectionModel<any>;
+  dataSourceLength!: number;
 
   //Принимает параметры от родителя
   @Input() statusSelect!: number | undefined;
@@ -63,22 +68,33 @@ export class TableComponent implements AfterViewInit {
 
   service: FakeApiService = inject(FakeApiService);
 
-  constructor() {}
+  constructor() {
+    
+  }
 
   ngAfterViewInit() {
     this.fetchData();
+    
   }
 
   fetchData(): void {
     // this.isLoading = true;
     this.service.postData(this.url, this.body).subscribe((res: any) => {
-      res.data.map((item: any) => {
-        // return this.getStatusText(item.status);
-        item.status = this.getStatusText(item.status);
-        item.violation = this.getViolationText(item.violation)
-        item.weighingType = this.getWeightType(item.weighingType)
-      })
-      this.dataSource = new MatTableDataSource(res.data)
+      if(res.data){
+        res.data.map((item: any) => {
+          // return this.getStatusText(item.status);
+          item.status = this.getStatusText(item.status);
+          item.violation = this.getViolationText(item.violation)
+          item.weighingType = this.getWeightType(item.weighingType)
+        })
+      }else {
+        res.data  = []
+      }
+      
+      this.dataSource = new MatTableDataSource<any>(res.data)
+      this.selection = new SelectionModel<any>(true, this.dataSource.data)
+      console.log(this.selection)
+      this.dataSourceLength = this.dataSource.data.length
       this.dataSource.paginator = this.paginator
       // this.isLoading = false
     })
@@ -129,14 +145,37 @@ export class TableComponent implements AfterViewInit {
     }
   }
 
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  toggleAllRows() {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+      return;
+    }
+
+    this.selection.select(...this.dataSource.data);
+  }
+
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: any): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+  }
 
   // ngOnChanges(changes: SimpleChanges): void {
   //   console.log(changes)
   //   if (changes) {
-  //     const statusSelect = changes['statusSelect'].currentValue
+  //     // const statusSelect = changes['statusSelect'].currentValue
   //     const trailerNumber = changes['trailerNumber'].currentValue;
   //     this.body.data.criteria = trailerNumber ? [{ fieldName: "trailerNumber", operator: "like", value: trailerNumber }] : [];
-  //     this.body.data.criteria = statusSelect ? [{ fieldName: "status", operator: "like", value: statusSelect }] : [];
+  //     // this.body.data.criteria = statusSelect ? [{ fieldName: "status", operator: "like", value: statusSelect }] : [];
   //     setTimeout(()=> {
   //       this.fetchData();
   //     }, 1000)
@@ -144,16 +183,17 @@ export class TableComponent implements AfterViewInit {
     
     
   // }
-  criteria: any[] = [];
-  timeout: any; 
   
+  // timeout: any; 
+  criteria: any[] = [];
+
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes)
     if (changes && (changes['statusSelect'] || changes['trailerNumber'])) {
       const statusSelect = changes['statusSelect'] ? changes['statusSelect'].currentValue : null;
       const trailerNumber = changes['trailerNumber'] ? changes['trailerNumber'].currentValue : null;
   
-      // this.criteria = [];
+      // Очищаем критерии перед добавлением новых
+      this.criteria = [];
   
       if (trailerNumber) {
         this.criteria.push({ fieldName: "trailerNumber", operator: "like", value: trailerNumber });
@@ -163,21 +203,16 @@ export class TableComponent implements AfterViewInit {
         this.criteria.push({ fieldName: "status", operator: "like", value: statusSelect });
       }
   
-      clearTimeout(this.timeout);
-      console.log(this.criteria)
+      this.body.data.criteria = this.criteria;
   
-      this.timeout = setTimeout(() => {
-        this.body.data.criteria = this.criteria;
-  
-        if (this.criteria.length > 0) {
+      if (this.criteria.length > 0) {
+        setTimeout(() => {
           this.fetchData();
-        }
-      }, 3000); 
+        }, 3000);
+      }
     }
   }
   
-  
-
 
   handlePageEvent(event: PageEvent) {
     this.pageSize = event.pageSize;

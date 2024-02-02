@@ -15,3 +15,17 @@ tr.mat-row {
     bottom: 0;
     overflow: hidden;
 }
+
+table {
+    width: 100%;
+    // border-spacing: 10px 20px;
+    // border-collapse: separate;
+}
+
+.table-pagination {
+    margin-top: 20px;
+
+    .mat-mdc-paginator {
+        background-color: transparent;
+    }
+}

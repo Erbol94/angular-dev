@@ -40,11 +40,42 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
 .mat-mdc-icon-button svg {
-  position: absolute!important;
+  position: absolute !important;
   top: 8px;
   left: 12px;
 }
+
 .mdc-icon-button mat-mdc-icon-button mat-unthemed mat-mdc-button-base {
   position: absolute;
+}
+
+.g-bubble-container {
+  display: flex;
+  gap: 4px;
+}
+
+.g-bubble {
+  background-color: transparent;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black !important;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.g-bubble:hover {
+  background-color: #252525;
+  color: white !important;
+}
+
+.g-bubble__active {
+  background-color: #252525;
+  color: white !important;
 }
