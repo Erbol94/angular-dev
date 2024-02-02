@@ -1,35 +1,25 @@
-<mat-drawer #drawer opened="true" mode="side" position="start" (mouseenter)="openDrawer()" (mouseleave)="closeDrawer()"
-            style="">
+<mat-drawer #drawer opened="true" mode="side" position="start" (mouseenter)="openDrawer()" (mouseleave)="closeDrawer()">
   <mat-nav-list [ngClass]="{'expanded': isDrawerExpanded, 'collapsed': !isDrawerExpanded}">
-    <mat-list-item>
-      <button routerLink="/idk" mat-button>
-        <mat-icon class="mat-icon">home</mat-icon>
-        <div>Домой</div>
-      </button>
-    </mat-list-item>
-    <mat-list-item>
-      <button routerLink="/vgk" mat-button>
-        <mat-icon class="mat-icon">sunny</mat-icon>
-        Весы
-      </button>
-    </mat-list-item>
-    <mat-list-item>
-      <button routerLink="/" mat-button>
-        <mat-icon class="mat-icon">notifications_active</mat-icon>
-        Регистрация ТС
-      </button>
-    </mat-list-item>
-    <mat-list-item>
-      <button routerLink="" mat-button>
-        <mat-icon class="mat-icon">error</mat-icon>
-        Таблицы
-      </button>
-    </mat-list-item>
-    <mat-list-item>
-      <button mat-button>
-        <mat-icon class="mat-icon">account_circle</mat-icon>
-        Настройка
-      </button>
-    </mat-list-item>
+    <ng-container *ngFor="let data of navData">
+      <mat-list-item>
+        <button routerLink="{{data.routeLink}}" mat-button>
+          <mat-icon class="mat-icon">{{data.icon}}</mat-icon>
+          <div>{{data.label}}</div>
+        </button>
+        <ng-container *ngIf="data.items && data.items.length > 0">
+          <button type="button" class="btn me-3" (click)="toggleSubMenu(data)">
+            <mat-icon>{{ data.isExpanded ? 'expand_less' : 'expand_more' }}</mat-icon>
+          </button>
+        </ng-container>
+      </mat-list-item>
+      <mat-list *ngIf="data.isExpanded">
+        <mat-list-item class="mat-list-item-submenu" *ngFor="let subItem of data.items">
+          <button routerLink="{{subItem.routeLink}}" mat-button>
+            <mat-icon class="mat-icon">{{subItem.icon}}</mat-icon>
+            <div>{{subItem.label}}</div>
+          </button>
+        </mat-list-item>
+      </mat-list>
+    </ng-container>
   </mat-nav-list>
 </mat-drawer>
