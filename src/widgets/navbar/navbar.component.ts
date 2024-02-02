@@ -20,13 +20,8 @@ import {INavbarData} from "./helper";
 })
 export class NavbarComponent {
   isExpanded = true;
-  showSubmenu: boolean = false;
-  isShowing = false;
-  showSubSubMenu: boolean = false;
   isDrawerExpanded = false;
-  // navData = navbarData;
   navData: INavbarData[] = navbarData;
-  rotateClass: string = '';
   constructor() {
     // console.log(this.navData)
   }
@@ -39,6 +34,7 @@ export class NavbarComponent {
 
   closeDrawer() {
     this.isDrawerExpanded = false;
+    this.navData.forEach(item => item.isExpanded = false);
   }
 
   toggleSubMenu(data: INavbarData) {

@@ -88,7 +88,7 @@ export class IdkComponent {
   pageSizeOptions = [5, 10, 25];
   showFirstLastButtons = true;
 
-  urlProduct = 'http://192.168.0.82:8080/smart-customs/ws/rest/com.axelor.apps.registration.db.Vgk/search';
+  urlProduct = 'http://192.168.0.82:8080/smart-customs/ws/rest/com.axelor.apps.registration.db.IdkInspection/search';
 
   bodyProduct = {
     fields: [
