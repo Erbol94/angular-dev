@@ -7,7 +7,7 @@
           <div>{{data.label}}</div>
         </button>
         <ng-container *ngIf="data.items && data.items.length > 0">
-          <button type="button" class="btn me-3" (click)="toggleSubMenu(data)">
+          <button  type="button" class="btn me-3 arrow-button" (click)="toggleSubMenu(data)">
             <mat-icon>{{ data.isExpanded ? 'expand_less' : 'expand_more' }}</mat-icon>
           </button>
         </ng-container>
