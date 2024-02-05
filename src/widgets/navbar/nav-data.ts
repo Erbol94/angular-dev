@@ -14,17 +14,31 @@ export const navbarData:INavbarData[] = [
     isExpanded: false,
     items: [
       {
-        routeLink:'/idk',
-        icon:'shopping_cart_checkout',
-        label:'Регистрация ТС ',
-
+        routeLink:'/vgk-axis',
+        icon:'view_comfy_alt',
+        label:'ВГК Оси',
       },
       {
-        routeLink:'/',
-        icon:'place_item',
-        label:'Фотофиксация'
+        routeLink:'/vgk-dimension',
+        icon:'view_comfy_alt',
+        label:'Габаритные размеры'
       },
-
+      {
+        routeLink:'/vgk-photo',
+        icon:'view_comfy_alt',
+        label:'ВГК фотки'
+      },
+      {
+        routeLink:'/vgk-dimension',
+        icon:'view_comfy_alt',
+        label:'Параметры АТС'
+      },
+      {
+        routeLink:'/vgk-vehicle-tstk',
+        icon:'view_comfy_alt',
+        label:'АТС ТСТК'
+      },
+     
     ],
 
   },
