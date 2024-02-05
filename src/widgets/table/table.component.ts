@@ -59,7 +59,6 @@ export class TableComponent implements AfterViewInit {
   @Input() url!: string;
   @Input() body!: any;
   @Input() trailerNumber!: string | '';
-  displayedColumnsNew: any[] = [];
 
   isLoading = false;
 
@@ -90,7 +89,7 @@ export class TableComponent implements AfterViewInit {
       }else {
         res.data  = []
       }
-      
+
       this.dataSource = new MatTableDataSource<any>(res.data)
       this.selection = new SelectionModel<any>(true, this.dataSource.data)
       console.log(this.selection)

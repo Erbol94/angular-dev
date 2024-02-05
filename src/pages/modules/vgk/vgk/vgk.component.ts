@@ -37,7 +37,6 @@ import {NgClass} from '@angular/common';
     UiDatepickerComponent,
     UiRadioButtonComponent,
     NgClass,
-
   ],
   templateUrl: './vgk.component.html',
   styleUrl: './vgk.component.scss',
@@ -87,7 +86,7 @@ export class VgkComponent {
     'weightSystem.name'
   ];
 
-  pageSize = 5;
+  pageSize = 8;
   pageIndex = 0;
   pageSizeOptions = [5, 10, 25];
   showFirstLastButtons = false;
