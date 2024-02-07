@@ -2,7 +2,7 @@ import { VgkServiceService } from './../../../../../shared/services/vgk-service/
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgIf } from '@angular/common';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-vgk-view',
@@ -16,101 +16,120 @@ export class VgkViewComponent {
   data: any;
   isLoading: boolean = false;
 
-  url =
-    'http://192.168.0.82:8080/smart-customs/ws/rest/com.axelor.apps.registration.db.Vgk';
+  url = 'http://192.168.0.82:8080/smart-customs/ws/rest/com.axelor.apps.registration.db.Vgk';
 
   constructor(private route: ActivatedRoute) {
     this.initializeData();
   }
 
   async initializeData() {
-    this.isLoading = true
+    this.isLoading = true;
     const id = parseInt(this.route.snapshot.params['id'], 10);
     try {
-        const res: any = await this.service.postDataById(this.url, id).toPromise();
-        if (res.data[0]) {
-            await Promise.all(res.data.map(async (item: any) => {
-                item.violation = this.getChangeViolation(item.violation);
-                item.weighingType = this.getChangeWeightType(item.weighingType);
-                item.status = this.getChangeStatus(item.status);
+      const res: any = await this.service
+        .postDataById(this.url, id)
+        .toPromise();
+      if (res.data[0]) {
+        await Promise.all(
+          res.data.map(async (item: any) => {
+            item.violation = this.getChangeViolation(item.violation);
+            item.weighingType = this.getChangeWeightType(item.weighingType);
+            item.status = this.getChangeStatus(item.status);
 
-                try {
-                    item.photos = await this.fetchData(`http://192.168.0.82:8080/smart-customs/ws/rest/com.axelor.apps.registration.db.VgkPhoto/${id}/fetch`, [
-                        "photoNumber",
-                        "backPhotoNumber",
-                        "inPhoto",
-                        "backPhoto",
-                        "customsDepartment"
-                    ]);
-                } catch (error) {
-                    console.error('Error occurred while fetching photos:', error);
-                    item.photos = [];
-                }
+            try {
+              item.photos = await this.fetchData(
+                `http://192.168.0.82:8080/smart-customs/ws/rest/com.axelor.apps.registration.db.VgkPhoto/${id}/fetch`,
+                [
+                  'photoNumber',
+                  'backPhotoNumber',
+                  'inPhoto',
+                  'backPhoto',
+                  'customsDepartment',
+                ]
+              );
+            } catch (error) {
+              console.error('Error occurred while fetching photos:', error);
+              item.photos = [];
+            }
 
-                try {
-                    item.dimensions = await this.fetchData(`http://192.168.0.82:8080/smart-customs/ws/rest/com.axelor.apps.registration.db.Dimension/${id}/fetch`, [
-                        "overloadWidth",
-                        "overloadHeight",
-                        "allowableHeight",
-                        "allowableWidth",
-                        "allowableLength",
-                        "width",
-                        "length",
-                        "overloadLength",
-                        "height",
-                        "customsDepartment"
-                    ]);
-                } catch (error) {
-                    console.error('Error occurred while fetching dimensions:', error);
-                    item.dimensions = [];
-                }
+            try {
+              item.dimensions = await this.fetchData(
+                `http://192.168.0.82:8080/smart-customs/ws/rest/com.axelor.apps.registration.db.Dimension/${id}/fetch`,
+                [
+                  'overloadWidth',
+                  'overloadHeight',
+                  'allowableHeight',
+                  'allowableWidth',
+                  'allowableLength',
+                  'width',
+                  'length',
+                  'overloadLength',
+                  'height',
+                  'customsDepartment',
+                ]
+              );
+            } catch (error) {
+              console.error('Error occurred while fetching dimensions:', error);
+              item.dimensions = [];
+            }
 
-                try {
-                    item.vehicleTstk = await this.fetchData(`http://192.168.0.82:8080/smart-customs/ws/rest/com.axelor.apps.registration.db.VehicleTstk/${id}/fetch`, [
-                        "axlesCount",
-                        "note",
-                        "downhills",
-                        "width",
-                        "length",
-                        "vehicleModel",
-                        "height",
-                        "customsDepartment"
-                    ]);
-                } catch (error) {
-                    console.error('Error occurred while fetching vehicleTstk:', error);
-                    item.vehicleTstk = [];
-                }
+            try {
+              item.vehicleTstk = await this.fetchData(
+                `http://192.168.0.82:8080/smart-customs/ws/rest/com.axelor.apps.registration.db.VehicleTstk/${id}/fetch`,
+                [
+                  'axlesCount',
+                  'note',
+                  'downhills',
+                  'width',
+                  'length',
+                  'vehicleModel',
+                  'height',
+                  'customsDepartment',
+                ]
+              );
+            } catch (error) {
+              console.error(
+                'Error occurred while fetching vehicleTstk:',
+                error
+              );
+              item.vehicleTstk = [];
+            }
 
-                try {
-                    item.axles = await this.fetchData(`http://192.168.0.82:8080/smart-customs/ws/rest/com.axelor.apps.registration.db.Axis/${id}/fetch`, [
-                        "permissibleLoad",
-                        "overloadLoad",
-                        "numberAxis",
-                        "loadAxis",
-                        "customsDepartment"
-                    ]);
-                } catch (error) {
-                    console.error('Error occurred while fetching axles:', error);
-                    item.axles = [];
-                }
-            }));
-        } else {
-            this.data = [];
-        }
-        this.data = res.data[0];
-        console.log(this.data);
+            try {
+              item.axles = await this.fetchData(
+                `http://192.168.0.82:8080/smart-customs/ws/rest/com.axelor.apps.registration.db.Axis/${id}/fetch`,
+                [
+                  'permissibleLoad',
+                  'overloadLoad',
+                  'numberAxis',
+                  'loadAxis',
+                  'customsDepartment',
+                ]
+              );
+            } catch (error) {
+              console.error('Error occurred while fetching axles:', error);
+              item.axles = [];
+            }
+          })
+        );
+      } else {
+        this.data = [];
+      }
+      this.data = res.data[0];
+      console.log(this.data);
     } catch (error) {
-        console.error('Error occurred while fetching data:', error);
+      console.error('Error occurred while fetching data:', error);
     } finally {
       this.isLoading = false;
     }
-}
+  }
 
-async fetchData(url: string, fields: string[]): Promise<any> {
-    const response: any = await this.service.postData(url, { fields }).toPromise();
+  async fetchData(url: string, fields: string[]): Promise<any> {
+    const response: any = await this.service
+      .postData(url, { fields })
+      .toPromise();
     return response.data[0];
-}
-
+  }
 
   getChangeViolation(text: string): string {
     switch (text) {

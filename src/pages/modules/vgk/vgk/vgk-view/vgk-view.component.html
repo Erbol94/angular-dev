@@ -3,25 +3,39 @@
     <div class="card-header">Форма просмотра</div>
 
     <div
-    class="spinner-container d-flex justify-content-center align-items-center mt-4"
-    *ngIf="isLoading"
-  >
-    <mat-spinner></mat-spinner>
-  </div>
+      class="spinner-container d-flex justify-content-center align-items-center mt-4"
+      *ngIf="isLoading"
+    >
+      <mat-spinner></mat-spinner>
+    </div>
 
-    <div class="card-body" *ngIf="!isLoading" >
+    <div class="card-body" *ngIf="!isLoading">
       <div class="container form-view mb-4">
         <div class="row mb-3">
           <div class="col-md-6 d-flex flex-column">
             <label class="form-label" for="Id">Гос-номер АТС</label>
-            <span>{{ data?.transportNumber }}</span>
+            <input
+              class="form-control"
+              style="width: 30%"
+              type="text"
+              value="{{ data?.transportNumber }}"
+              id="transportNumber"
+              readonly="readonly"
+            />
           </div>
 
           <div class="col-md-6 d-flex flex-column">
             <label class="form-label" for="Title"
               >Номер прицепа/полуприцепа</label
             >
-            <span>{{ data?.trailerNumber }}</span>
+            <input
+              class="form-control"
+              style="width: 30%"
+              type="text"
+              value="{{ data?.trailerNumber }}"
+              id="trailerNumber"
+              readonly="readonly"
+            />
           </div>
 
           <div class="divider col-md-12"></div>
@@ -29,12 +43,26 @@
         <div class="row mb-3">
           <div class="col-md-6 d-flex flex-column">
             <label class="form-label" for="Id">Дата создания</label>
-            <span>{{ data?.creatingDate }}</span>
+            <input
+              class="form-control"
+              style="width: 30%"
+              type="datetime"
+              value="{{ data?.creatingDate }}"
+              id="creatingDate"
+              readonly="readonly"
+            />
           </div>
 
           <div class="col-md-6 d-flex flex-column">
             <label class="form-label" for="Title">Таможенный орган</label>
-            <span>{{ data?.customsDepartment.fullName }}</span>
+            <input
+              class="form-control"
+              style="width: 30%"
+              type="datetime"
+              value="{{ data?.customsDepartment.fullName }}"
+              id="customsDepartment"
+              readonly="readonly"
+            />
           </div>
 
           <div class="divider col-md-12"></div>
@@ -42,12 +70,26 @@
         <div class="row mb-3">
           <div class="col-md-6 d-flex flex-column">
             <label class="form-label" for="Id">Способ записи</label>
-            <span>{{ data?.recordingMethod }}</span>
+            <input
+              class="form-control"
+              style="width: 30%"
+              type="datetime"
+              value="{{ data?.recordingMethod }}"
+              id="recordingMethod"
+              readonly="readonly"
+            />
           </div>
 
           <div class="col-md-6 d-flex flex-column">
             <label class="form-label" for="Title">Общий вес</label>
-            <span>{{ data?.totalWeight }}</span>
+            <input
+              class="form-control"
+              style="width: 30%"
+              type="datetime"
+              value="{{ data?.totalWeight }}"
+              id="totalWeight"
+              readonly="readonly"
+            />
           </div>
 
           <div class="divider col-md-12"></div>
@@ -55,7 +97,14 @@
         <div class="row mb-3">
           <div class="col-md-6 d-flex flex-column">
             <label class="form-label" for="Id">Система весов</label>
-            <span>{{ data?.weightSystem?.name }}</span>
+            <input
+              class="form-control"
+              style="width: 30%"
+              type="datetime"
+              value="{{ data?.weightSystem?.name }}"
+              id="weightSystem"
+              readonly="readonly"
+            />
           </div>
 
           <div class="col-md-6 d-flex flex-column">
@@ -70,18 +119,39 @@
         <div class="row mb-3">
           <div class="col-md-6 d-flex flex-column">
             <label class="form-label" for="Id">Нарушение</label>
-            <span>{{ data?.violation }}</span>
+            <input
+              class="form-control"
+              style="width: 30%"
+              type="datetime"
+              value="{{ data?.violation }}"
+              id="violation"
+              readonly="readonly"
+            />
           </div>
 
           <div class="col-md-6 d-flex flex-column">
             <label class="form-label" for="Title">Тип взвешивания</label>
-            <span>{{ data?.weighingType }}</span>
+            <input
+              class="form-control"
+              style="width: 30%"
+              type="datetime"
+              value="{{ data?.weighingType }}"
+              id="weighingType"
+              readonly="readonly"
+            />
           </div>
         </div>
         <div class="row mb-3">
           <div class="col-md-6 d-flex flex-column">
             <label class="form-label" for="Id">Статус</label>
-            <span>{{ data?.status }}</span>
+            <input
+              class="form-control"
+              style="width: 30%"
+              type="datetime"
+              value="{{ data?.status }}"
+              id="status"
+              readonly="readonly"
+            />
           </div>
         </div>
       </div>
@@ -94,14 +164,28 @@
         <div class="row mb-3">
           <div class="col-md-6 d-flex flex-column">
             <label class="form-label" for="Id">Евро</label>
-            <span>{{ data?.euro }}</span>
+            <input
+              class="form-control"
+              style="width: 30%"
+              type="datetime"
+              value="{{ data?.euro }}"
+              id="euro"
+              readonly="readonly"
+            />
           </div>
 
           <div class="col-md-6 d-flex flex-column">
             <label class="form-label" for="Title"
               >Номер прицепа/полуприцепа</label
             >
-            <span>{{ data?.modifierType }}</span>
+            <input
+              class="form-control"
+              style="width: 30%"
+              type="datetime"
+              value="{{ data?.modifierType }}"
+              id="modifierType"
+              readonly="readonly"
+            />
           </div>
 
           <div class="divider col-md-12"></div>
@@ -109,12 +193,26 @@
         <div class="row mb-3">
           <div class="col-md-6 d-flex flex-column">
             <label class="form-label" for="Id">Оси</label>
-            <span>{{ data?.axles }}</span>
+            <input
+              class="form-control"
+              style="width: 30%"
+              type="datetime"
+              value="{{ data?.axles }}"
+              id="axles"
+              readonly="readonly"
+            />
           </div>
 
           <div class="col-md-6 d-flex flex-column">
             <label class="form-label" for="Title">Фотографии</label>
-            <span>{{ data?.photos }}</span>
+            <input
+              class="form-control"
+              style="width: 30%"
+              type="datetime"
+              value="{{ data?.photos }}"
+              id="photos"
+              readonly="readonly"
+            />
           </div>
 
           <div class="divider col-md-12"></div>
@@ -122,7 +220,14 @@
         <div class="row mb-3">
           <div class="col-md-12 d-flex flex-column">
             <label class="form-label" for="Id">Габаритные размеры</label>
-            <span>{{ data?.dimensions }}</span>
+            <input
+              class="form-control"
+              style="width: 30%"
+              type="datetime"
+              value="{{ data?.dimensions }}"
+              id="dimensions"
+              readonly="readonly"
+            />
           </div>
 
           <div class="divider col-md-12"></div>
@@ -130,49 +235,98 @@
         <div class="row mb-3">
           <div class="col-md-6 d-flex flex-column">
             <label class="form-label" for="overload">Перегрузка</label>
-            <span>{{ data?.overload }}</span>
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="overload"
+              [checked]="data?.overload"
+              readonly="readonly"
+              disabled
+            />
           </div>
 
           <div class="col-md-6 d-flex flex-column">
             <label class="form-label" for="Title">Нарушение транзита</label>
-            <span>{{ data?.transitViolations }}</span>
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="transitViolations"
+              [checked]="data?.transitViolations"
+              disabled
+            />
           </div>
         </div>
         <div class="row mb-3">
           <div class="col-md-6 d-flex flex-column">
             <label class="form-label" for="Id">Доп. информация</label>
-            <span>{{ data?.addInfo }}</span>
+            <input
+              class="form-control"
+              style="width: 30%"
+              type="datetime"
+              value="{{ data?.addInfo }}"
+              id="addInfo"
+              readonly="readonly"
+            />
           </div>
 
           <div class="col-md-6 d-flex flex-column">
             <label class="form-label" for="Title"
               >Индетификатор пред.версии</label
             >
-            <span>{{ data?.prevVerID }}</span>
+            <input
+              class="form-control"
+              style="width: 30%"
+              type="datetime"
+              value="{{ data?.prevVerID }}"
+              id="violation"
+              readonly="readonly"
+            />
           </div>
         </div>
         <div class="row mb-3">
           <div class="col-md-6 d-flex flex-column">
             <label class="form-label" for="Id">Номер акта</label>
-            <span>{{ data?.actNumber }}</span>
+            <input
+              class="form-control"
+              style="width: 30%"
+              type="datetime"
+              value="{{ data?.actNumber }}"
+              id="violation"
+              readonly="readonly"
+            />
           </div>
 
           <div class="col-md-6 d-flex flex-column">
             <label class="form-label" for="Id">Категория</label>
-            <span>{{ data?.category }}</span>
+            <input
+              class="form-control"
+              style="width: 30%"
+              type="datetime"
+              value="{{ data?.category }}"
+              id="violation"
+              readonly="readonly"
+            />
           </div>
         </div>
 
         <div class="row mb-3">
           <div class="col-md-12 d-flex flex-column">
             <label class="form-label" for="Id">АТС ТСТК</label>
-            <span>{{ data?.vehicleTstk }}</span>
+            <input
+              class="form-control"
+              style="width: 30%"
+              type="datetime"
+              value="{{ data?.vehicleTstk }}"
+              id="violation"
+              readonly="readonly"
+            />
           </div>
         </div>
 
         <a href="/vgk" class="btn btn-primary">Назад</a>
       </div>
     </div>
-    
   </div>
 </div>
