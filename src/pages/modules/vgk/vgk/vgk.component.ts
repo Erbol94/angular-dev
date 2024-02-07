@@ -71,7 +71,6 @@ export class VgkComponent {
   dataSource!: MatTableDataSource<any>;
   trailerNumber: string = '';
 
-
   displayedColumns = [
     'id',
     'trailerNumber',

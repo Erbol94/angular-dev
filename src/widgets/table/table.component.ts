@@ -60,7 +60,7 @@ export class TableComponent implements AfterViewInit {
   @Input() body!: any;
   @Input() trailerNumber!: string | '';
 
-  isLoading = false;
+  isLoading: boolean = false;
 
   // @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -77,7 +77,7 @@ export class TableComponent implements AfterViewInit {
   }
 
   fetchData(): void {
-    // this.isLoading = true;
+    this.isLoading = true;
     this.service.postData(this.url, this.body).subscribe((res: any) => {
       if(res.data){
         res.data.map((item: any) => {
@@ -95,7 +95,7 @@ export class TableComponent implements AfterViewInit {
       console.log(this.selection)
       this.dataSourceLength = this.dataSource.data.length
       this.dataSource.paginator = this.paginator
-      // this.isLoading = false
+      this.isLoading = false
     })
   }
 
@@ -195,7 +195,7 @@ export class TableComponent implements AfterViewInit {
       this.criteria = [];
   
       if (trailerNumber) {
-        this.criteria.push({ fieldName: "trailerNumber", operator: "like", value: trailerNumber });
+        this.criteria.push({ fieldName: "transportNumber", operator: "like", value: trailerNumber });
       }
 
       if (statusSelect) {
