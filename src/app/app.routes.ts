@@ -14,6 +14,7 @@ import { VgkDimensionComponent } from '../pages/modules/vgk/vgk-dimension/vgk-di
 import { VgkPhotoComponent } from '../pages/modules/vgk/vgk-photo/vgk-photo.component';
 import { VgkDownhilldComponent } from '../pages/modules/vgk/vgk-downhilld/vgk-downhilld.component';
 import { VgkVehicleTstkComponent } from '../pages/modules/vgk/vgk-vehicle-tstk/vgk-vehicle-tstk.component';
+import { PhotoRecordingComponent } from '../pages/modules/photo-recording/photo-recording.component';
 
 
 export const routes: Routes = [
@@ -62,8 +63,13 @@ export const routes: Routes = [
         path: 'vgk-vehicle-tstk',
         component: VgkVehicleTstkComponent,
       },
+      {
+        path: 'photo-recording',
+        component: PhotoRecordingComponent,
+      },
     ],
   },
+
   {
     path: 'login',
     component: LoginComponent,

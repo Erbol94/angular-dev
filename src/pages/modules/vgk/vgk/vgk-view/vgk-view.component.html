@@ -1,4 +1,10 @@
 <div class="container">
+
+  <div class="header">
+    <button class="btn btn-primary mb-3 " style="margin-right: 10px;" (click)="toogleFunction()">{{isEdit}}</button>
+    <button class="btn btn-dark mb-3" (click)="onSave()">Изменить</button>
+  </div>
+
   <div class="card mb-4">
     <div class="card-header">Форма просмотра</div>
 
@@ -9,324 +15,368 @@
       <mat-spinner></mat-spinner>
     </div>
 
-    <div class="card-body" *ngIf="!isLoading">
-      <div class="container form-view mb-4">
-        <div class="row mb-3">
-          <div class="col-md-6 d-flex flex-column">
-            <label class="form-label" for="Id">Гос-номер АТС</label>
-            <input
-              class="form-control"
-              style="width: 30%"
-              type="text"
-              value="{{ data?.transportNumber }}"
-              id="transportNumber"
-              readonly="readonly"
-            />
-          </div>
-
-          <div class="col-md-6 d-flex flex-column">
-            <label class="form-label" for="Title"
-              >Номер прицепа/полуприцепа</label
-            >
-            <input
-              class="form-control"
-              style="width: 30%"
-              type="text"
-              value="{{ data?.trailerNumber }}"
-              id="trailerNumber"
-              readonly="readonly"
-            />
-          </div>
-
-          <div class="divider col-md-12"></div>
-        </div>
-        <div class="row mb-3">
-          <div class="col-md-6 d-flex flex-column">
-            <label class="form-label" for="Id">Дата создания</label>
-            <input
-              class="form-control"
-              style="width: 30%"
-              type="datetime"
-              value="{{ data?.creatingDate }}"
-              id="creatingDate"
-              readonly="readonly"
-            />
-          </div>
-
-          <div class="col-md-6 d-flex flex-column">
-            <label class="form-label" for="Title">Таможенный орган</label>
-            <input
-              class="form-control"
-              style="width: 30%"
-              type="datetime"
-              value="{{ data?.customsDepartment.fullName }}"
-              id="customsDepartment"
-              readonly="readonly"
-            />
-          </div>
-
-          <div class="divider col-md-12"></div>
-        </div>
-        <div class="row mb-3">
-          <div class="col-md-6 d-flex flex-column">
-            <label class="form-label" for="Id">Способ записи</label>
-            <input
-              class="form-control"
-              style="width: 30%"
-              type="datetime"
-              value="{{ data?.recordingMethod }}"
-              id="recordingMethod"
-              readonly="readonly"
-            />
-          </div>
-
-          <div class="col-md-6 d-flex flex-column">
-            <label class="form-label" for="Title">Общий вес</label>
-            <input
-              class="form-control"
-              style="width: 30%"
-              type="datetime"
-              value="{{ data?.totalWeight }}"
-              id="totalWeight"
-              readonly="readonly"
-            />
-          </div>
-
-          <div class="divider col-md-12"></div>
-        </div>
-        <div class="row mb-3">
-          <div class="col-md-6 d-flex flex-column">
-            <label class="form-label" for="Id">Система весов</label>
-            <input
-              class="form-control"
-              style="width: 30%"
-              type="datetime"
-              value="{{ data?.weightSystem?.name }}"
-              id="weightSystem"
-              readonly="readonly"
-            />
-          </div>
-
-          <div class="col-md-6 d-flex flex-column">
-            <label class="form-label" for="Title">Фото</label>
-            <img
-              [src]="data?.photo?.fileName"
-              style="width: 100px; border: 1px solid; height: 100px"
-              [alt]="data?.photo?.id"
-            />
-          </div>
-        </div>
-        <div class="row mb-3">
-          <div class="col-md-6 d-flex flex-column">
-            <label class="form-label" for="Id">Нарушение</label>
-            <input
-              class="form-control"
-              style="width: 30%"
-              type="datetime"
-              value="{{ data?.violation }}"
-              id="violation"
-              readonly="readonly"
-            />
-          </div>
-
-          <div class="col-md-6 d-flex flex-column">
-            <label class="form-label" for="Title">Тип взвешивания</label>
-            <input
-              class="form-control"
-              style="width: 30%"
-              type="datetime"
-              value="{{ data?.weighingType }}"
-              id="weighingType"
-              readonly="readonly"
-            />
-          </div>
-        </div>
-        <div class="row mb-3">
-          <div class="col-md-6 d-flex flex-column">
-            <label class="form-label" for="Id">Статус</label>
-            <input
-              class="form-control"
-              style="width: 30%"
-              type="datetime"
-              value="{{ data?.status }}"
-              id="status"
-              readonly="readonly"
-            />
-          </div>
+    <form [formGroup]="vgkForm">
+      <div class="card-body" *ngIf="!isLoading">
+        <div class="container form-view mb-4">
+            <div class="row mb-3">
+              <div class="col-md-6 d-flex flex-column">
+                <label class="form-label" for="Id">Гос-номер АТС</label>
+                <input
+                  class="form-control"
+                  style="width: 30%"
+                  type="text"
+                  value="{{ data?.transportNumber }}"
+                  id="transportNumber"
+                  [class.readOnly]="isReadOnly"
+                  formControlName="transportNumber"
+                  [readOnly]="isReadOnly"
+                />
+              </div>
+    
+              <div class="col-md-6 d-flex flex-column">
+                <label class="form-label" for="Title"
+                  >Номер прицепа/полуприцепа</label
+                >
+                <input
+                  class="form-control"
+                  style="width: 30%"
+                  type="text"
+                  value="{{ data?.trailerNumber }}"
+                  id="trailerNumber"
+                  [class.readOnly]="isReadOnly"
+                  formControlName="trailerNumber"
+                  [readOnly]="isReadOnly"
+                />
+              </div>
+    
+              <div class="divider col-md-12"></div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6 d-flex flex-column">
+                <label class="form-label" for="Id">Дата создания</label>
+                <input
+                  class="form-control"
+                  style="width: 30%"
+                  type="datetime"
+                  value="{{ data?.creatingDate }}"
+                  id="creatingDate"
+                  [class.readOnly]="isReadOnly"
+                  [readOnly]="isReadOnly"
+                  formControlName="creatingDate"
+                />
+              </div>
+    
+              <div class="col-md-6 d-flex flex-column">
+                <label class="form-label" for="Title">Таможенный орган</label>
+                <input
+                  class="form-control"
+                  style="width: 30%"
+                  type="datetime"
+                  value="{{ data?.customsDepartment.fullName }}"
+                  id="customsDepartment"
+                  [class.readOnly]="isReadOnly"
+                  [readOnly]="isReadOnly"
+                />
+              </div>
+    
+              <div class="divider col-md-12"></div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6 d-flex flex-column">
+                <label class="form-label" for="Id">Способ записи</label>
+                <input
+                  class="form-control"
+                  style="width: 30%"
+                  type="datetime"
+                  value="{{ data?.recordingMethod }}"
+                  id="recordingMethod"
+                  [class.readOnly]="isReadOnly"
+                  [readOnly]="isReadOnly"
+                  formControlName="recordingMethod"
+                />
+              </div>
+    
+              <div class="col-md-6 d-flex flex-column">
+                <label class="form-label" for="Title">Общий вес</label>
+                <input
+                  class="form-control"
+                  style="width: 30%"
+                  type="datetime"
+                  value="{{ data?.totalWeight }}"
+                  id="totalWeight"
+                  [class.readOnly]="isReadOnly"
+                  [readOnly]="isReadOnly"
+                  formControlName="totalWeight"
+                />
+              </div>
+    
+              <div class="divider col-md-12"></div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6 d-flex flex-column">
+                <label class="form-label" for="Id">Система весов</label>
+                <input
+                  class="form-control"
+                  style="width: 30%"
+                  type="datetime"
+                  value="{{ data?.weightSystem?.name }}"
+                  id="weightSystem"
+                  [class.readOnly]="isReadOnly"
+                  [readOnly]="isReadOnly"
+                />
+              </div>
+    
+              <div class="col-md-6 d-flex flex-column">
+                <label class="form-label" for="Title">Фото</label>
+                <img
+                  [src]="data?.photo?.fileName"
+                  style="width: 100px; border: 1px solid; height: 100px"
+                  [alt]="data?.photo?.id"
+                />
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6 d-flex flex-column">
+                <label class="form-label" for="Id">Нарушение</label>
+                <input
+                  class="form-control"
+                  style="width: 30%"
+                  type="datetime"
+                  value="{{ data?.violation }}"
+                  id="violation"
+                  [class.readOnly]="isReadOnly"
+                  [readOnly]="isReadOnly"
+                  formControlName="violation"
+                />
+              </div>
+    
+              <div class="col-md-6 d-flex flex-column">
+                <label class="form-label" for="Title">Тип взвешивания</label>
+                <input
+                  class="form-control"
+                  style="width: 30%"
+                  type="datetime"
+                  value="{{ data?.weighingType }}"
+                  id="weighingType"
+                  [class.readOnly]="isReadOnly"
+                  [readOnly]="isReadOnly"
+                  formControlName="weighingType"
+                />
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6 d-flex flex-column">
+                <label class="form-label" for="Id">Статус</label>
+                <input
+                  class="form-control"
+                  style="width: 30%"
+                  type="datetime"
+                  value="{{ data?.status }}"
+                  id="status"
+                  [class.readOnly]="isReadOnly"
+                  [readOnly]="isReadOnly"
+                  formControlName="status"
+                />
+              </div>
+            </div>
+          
+  
+         
         </div>
       </div>
-    </div>
-
-    <div class="divider mb-4" style="border: 1px solid #fcfcfc"></div>
-
-    <div class="card-body" *ngIf="!isLoading">
-      <div class="container form-view mb-4">
-        <div class="row mb-3">
-          <div class="col-md-6 d-flex flex-column">
-            <label class="form-label" for="Id">Евро</label>
-            <input
-              class="form-control"
-              style="width: 30%"
-              type="datetime"
-              value="{{ data?.euro }}"
-              id="euro"
-              readonly="readonly"
-            />
+  
+      <div class="divider mb-4" style="border: 1px solid #fcfcfc"></div>
+  
+      <div class="card-body" *ngIf="!isLoading">
+        <div class="container form-view mb-4">
+          <div class="row mb-3">
+            <div class="col-md-6 d-flex flex-column">
+              <label class="form-label" for="Id">Евро</label>
+              <input
+                class="form-control"
+                style="width: 30%"
+                type="datetime"
+                value="{{ data?.euro }}"
+                id="euro"
+                [class.readOnly]="isReadOnly"
+                [readOnly]="isReadOnly"
+                formControlName="euro"
+              />
+            </div>
+  
+            <div class="col-md-6 d-flex flex-column">
+              <label class="form-label" for="Title"
+                >Номер прицепа/полуприцепа</label
+              >
+              <input
+                class="form-control"
+                style="width: 30%"
+                type="datetime"
+                value="{{ data?.modifierType }}"
+                id="modifierType"
+                [class.readOnly]="isReadOnly"
+                [readOnly]="isReadOnly"
+                formControlName="modifierType"
+              />
+            </div>
+  
+            <div class="divider col-md-12"></div>
           </div>
-
-          <div class="col-md-6 d-flex flex-column">
-            <label class="form-label" for="Title"
-              >Номер прицепа/полуприцепа</label
-            >
-            <input
-              class="form-control"
-              style="width: 30%"
-              type="datetime"
-              value="{{ data?.modifierType }}"
-              id="modifierType"
-              readonly="readonly"
-            />
+          <div class="row mb-3">
+            <div class="col-md-6 d-flex flex-column">
+              <label class="form-label" for="Id">Оси</label>
+              <input
+                class="form-control"
+                style="width: 30%"
+                type="datetime"
+                value="{{ data?.axles }}"
+                id="axles"
+                [class.readOnly]="isReadOnly"
+                [readOnly]="isReadOnly"
+                formControlName="axles"
+              />
+            </div>
+  
+            <div class="col-md-6 d-flex flex-column">
+              <label class="form-label" for="Title">Фотографии</label>
+              <input
+                class="form-control"
+                style="width: 30%"
+                type="datetime"
+                value="{{ data?.photos }}"
+                id="photos"
+                [class.readOnly]="isReadOnly"
+                [readOnly]="isReadOnly"
+                formControlName="photos"
+              />
+            </div>
+  
+            <div class="divider col-md-12"></div>
           </div>
-
-          <div class="divider col-md-12"></div>
+          <div class="row mb-3">
+            <div class="col-md-12 d-flex flex-column">
+              <label class="form-label" for="Id">Габаритные размеры</label>
+              <input
+                class="form-control"
+                style="width: 30%"
+                type="datetime"
+                value="{{ data?.dimensions }}"
+                id="dimensions"
+                [class.readOnly]="isReadOnly"
+                [readOnly]="isReadOnly"
+                formControlName="dimensions"
+              />
+            </div>
+  
+            <div class="divider col-md-12"></div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-6 d-flex flex-column">
+              <label class="form-label" for="overload">Перегрузка</label>
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="overload"
+                [checked]="data?.overload"
+                [disabled]="isDisabled"
+              />
+            </div>
+  
+            <div class="col-md-6 d-flex flex-column">
+              <label class="form-label" for="Title">Нарушение транзита</label>
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="transitViolations"
+                [checked]="data?.transitViolations"
+                [disabled]="isDisabled"
+                formControlName="transitViolations"
+              />
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-6 d-flex flex-column">
+              <label class="form-label" for="Id">Доп. информация</label>
+              <input
+                class="form-control"
+                style="width: 30%"
+                type="datetime"
+                value="{{ data?.addInfo }}"
+                id="addInfo"
+                [class.readOnly]="isReadOnly"
+                [readOnly]="isReadOnly"
+                formControlName="addInfo"
+              />
+            </div>
+  
+            <div class="col-md-6 d-flex flex-column">
+              <label class="form-label" for="Title"
+                >Индетификатор пред.версии</label
+              >
+              <input
+                class="form-control"
+                style="width: 30%"
+                type="datetime"
+                value="{{ data?.prevVerID }}"
+                id="violation"
+                [class.readOnly]="isReadOnly"
+                [readOnly]="isReadOnly"
+                formControlName="prevVerID"
+              />
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-6 d-flex flex-column">
+              <label class="form-label" for="Id">Номер акта</label>
+              <input
+                class="form-control"
+                style="width: 30%"
+                type="datetime"
+                value="{{ data?.actNumber }}"
+                id="violation"
+                [class.readOnly]="isReadOnly"
+                [readOnly]="isReadOnly"
+                formControlName="actNumber"
+              />
+            </div>
+  
+            <div class="col-md-6 d-flex flex-column">
+              <label class="form-label" for="Id">Категория</label>
+              <input
+                class="form-control"
+                style="width: 30%"
+                type="datetime"
+                value="{{ data?.category }}"
+                id="violation"
+                [class.readOnly]="isReadOnly"
+                [readOnly]="isReadOnly"
+                formControlName="category"
+              />
+            </div>
+          </div>
+  
+          <div class="row mb-3">
+            <div class="col-md-12 d-flex flex-column">
+              <label class="form-label" for="Id">АТС ТСТК</label>
+              <input
+                class="form-control"
+                style="width: 30%"
+                type="datetime"
+                value="{{ data?.vehicleTstk }}"
+                id="violation"
+                [class.readOnly]="isReadOnly"
+                [readOnly]="isReadOnly"
+                formControlName="vehicleTstk"
+              />
+            </div>
+          </div>
+  
+          <a href="/vgk" class="btn btn-primary">Назад</a>
         </div>
-        <div class="row mb-3">
-          <div class="col-md-6 d-flex flex-column">
-            <label class="form-label" for="Id">Оси</label>
-            <input
-              class="form-control"
-              style="width: 30%"
-              type="datetime"
-              value="{{ data?.axles }}"
-              id="axles"
-              readonly="readonly"
-            />
-          </div>
-
-          <div class="col-md-6 d-flex flex-column">
-            <label class="form-label" for="Title">Фотографии</label>
-            <input
-              class="form-control"
-              style="width: 30%"
-              type="datetime"
-              value="{{ data?.photos }}"
-              id="photos"
-              readonly="readonly"
-            />
-          </div>
-
-          <div class="divider col-md-12"></div>
-        </div>
-        <div class="row mb-3">
-          <div class="col-md-12 d-flex flex-column">
-            <label class="form-label" for="Id">Габаритные размеры</label>
-            <input
-              class="form-control"
-              style="width: 30%"
-              type="datetime"
-              value="{{ data?.dimensions }}"
-              id="dimensions"
-              readonly="readonly"
-            />
-          </div>
-
-          <div class="divider col-md-12"></div>
-        </div>
-        <div class="row mb-3">
-          <div class="col-md-6 d-flex flex-column">
-            <label class="form-label" for="overload">Перегрузка</label>
-            <input
-              class="form-check-input"
-              type="checkbox"
-              value=""
-              id="overload"
-              [checked]="data?.overload"
-              readonly="readonly"
-              disabled
-            />
-          </div>
-
-          <div class="col-md-6 d-flex flex-column">
-            <label class="form-label" for="Title">Нарушение транзита</label>
-            <input
-              class="form-check-input"
-              type="checkbox"
-              value=""
-              id="transitViolations"
-              [checked]="data?.transitViolations"
-              disabled
-            />
-          </div>
-        </div>
-        <div class="row mb-3">
-          <div class="col-md-6 d-flex flex-column">
-            <label class="form-label" for="Id">Доп. информация</label>
-            <input
-              class="form-control"
-              style="width: 30%"
-              type="datetime"
-              value="{{ data?.addInfo }}"
-              id="addInfo"
-              readonly="readonly"
-            />
-          </div>
-
-          <div class="col-md-6 d-flex flex-column">
-            <label class="form-label" for="Title"
-              >Индетификатор пред.версии</label
-            >
-            <input
-              class="form-control"
-              style="width: 30%"
-              type="datetime"
-              value="{{ data?.prevVerID }}"
-              id="violation"
-              readonly="readonly"
-            />
-          </div>
-        </div>
-        <div class="row mb-3">
-          <div class="col-md-6 d-flex flex-column">
-            <label class="form-label" for="Id">Номер акта</label>
-            <input
-              class="form-control"
-              style="width: 30%"
-              type="datetime"
-              value="{{ data?.actNumber }}"
-              id="violation"
-              readonly="readonly"
-            />
-          </div>
-
-          <div class="col-md-6 d-flex flex-column">
-            <label class="form-label" for="Id">Категория</label>
-            <input
-              class="form-control"
-              style="width: 30%"
-              type="datetime"
-              value="{{ data?.category }}"
-              id="violation"
-              readonly="readonly"
-            />
-          </div>
-        </div>
-
-        <div class="row mb-3">
-          <div class="col-md-12 d-flex flex-column">
-            <label class="form-label" for="Id">АТС ТСТК</label>
-            <input
-              class="form-control"
-              style="width: 30%"
-              type="datetime"
-              value="{{ data?.vehicleTstk }}"
-              id="violation"
-              readonly="readonly"
-            />
-          </div>
-        </div>
-
-        <a href="/vgk" class="btn btn-primary">Назад</a>
       </div>
-    </div>
+    </form>
+
   </div>
 </div>

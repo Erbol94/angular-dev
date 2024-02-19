@@ -9,7 +9,7 @@ export const navbarData:INavbarData[] = [
   },
   {
     routeLink:'/vgk',
-    icon:'sunny',
+    icon:'scales',
     label:'Весы',
     isExpanded: false,
     items: [
@@ -44,9 +44,10 @@ export const navbarData:INavbarData[] = [
   },
 
   {
-    routeLink:'/',
-    icon:'notifications_active',
-    label:'Регистрация ТС'
+    routeLink:'/photo-recording',
+    icon:'photo',
+    label:'Фотофиксация',
+    isExpanded: false,
   },
   {
     routeLink:'/',

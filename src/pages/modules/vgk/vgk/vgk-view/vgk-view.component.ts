@@ -1,24 +1,100 @@
 import { VgkServiceService } from './../../../../../shared/services/vgk-service/vgk-service.service';
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { ReactiveFormsModule} from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-vgk-view',
   standalone: true,
-  imports: [NgIf, MatProgressSpinnerModule],
+  imports: [NgIf, MatProgressSpinnerModule, ReactiveFormsModule],
   templateUrl: './vgk-view.component.html',
   styleUrl: './vgk-view.component.scss',
 })
-export class VgkViewComponent {
+export class VgkViewComponent implements OnInit {
   service: VgkServiceService = inject(VgkServiceService);
   data: any;
+  originalData: any;
+  vgkForm!: FormGroup;
   isLoading: boolean = false;
+  isReadOnly: boolean = true;
+  isDisabled: boolean = true;
+  isEdit: string = 'Редактировать'
+
+
+  ngOnInit(): void {
+    this.vgkForm = this.fb.group({
+      transportNumber: [''],
+      trailerNumber: [''],
+      creatingDate: [''],
+      recordingMethod: [''],
+      totalWeight: [''],
+      violation: [''],
+      weighingType: [''],
+      status: [''],
+      euro: [''],
+      modifierType: [''],
+      axles: [''],
+      photos: [''],
+      dimensions: [''],
+      // overload: [],
+      transitViolations: [],
+      addInfo: [''],
+      prevVerID: [''],
+      actNumber: [''],
+      category: [''],
+      vehicleTstk: ['']
+    });
+    
+    this.originalData = { ...this.data }; 
+   
+    this.vgkForm.patchValue({
+      transportNumber: this.data?.transportNumber,
+      trailerNumber: this.data?.trailerNumber,
+      creatingDate: this.data?.creatingDate,
+      recordingMethod: this.data?.recordingMethod,
+      totalWeight: this.data?.totalWeight,
+      violation: this.data?.violation,
+      weighingType: this.data?.weighingType,
+      status: this.data?.status,
+      euro: this.data?.euro,
+      modifierType: this.data?.modifierType,
+      axles: this.data?.axles,
+      photos: this.data?.photos,
+      dimensions: this.data?.dimensions,
+      overload: this.data?.overload,
+      transitViolations: this.data?.transitViolations,
+      addInfo: this.data?.addInfo,
+      prevVerID: this.data?.prevVerID,
+      actNumber: this.data?.actNumber,
+      category: this.data?.category,
+      vehicleTstk: this.data?.vehicleTstk,
+    });
+  }
+
+  onSave(): void {
+    const formData = { ...this.vgkForm.value, id: this.data.id} ;
+    const isFormChanged = JSON.stringify(formData) !== JSON.stringify(this.originalData);
+
+    if (isFormChanged) {
+      this.http.post(`http://192.168.0.82:8080/smart-customs/ws/rest/com.axelor.apps.registration.db.Vgk`, {data:{...formData}}).subscribe(response => {
+        console.log('Ответ на PUT запрос:', response);
+      });
+    } else {
+      const id = this.data.id; 
+      this.http.post(`http://192.168.0.82:8080/smart-customs/ws/rest/com.axelor.apps.registration.db.Vgk/${id}`, { id }).subscribe(response => {
+        console.log('Ответ на PUT запрос (только ID):', response);
+      });
+    }
+  }
 
   url = 'http://192.168.0.82:8080/smart-customs/ws/rest/com.axelor.apps.registration.db.Vgk';
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private fb: FormBuilder, private http: HttpClient) {
     this.initializeData();
   }
 
@@ -116,7 +192,7 @@ export class VgkViewComponent {
         this.data = [];
       }
       this.data = res.data[0];
-      console.log(this.data);
+      this.vgkForm.patchValue(this.data)
     } catch (error) {
       console.error('Error occurred while fetching data:', error);
     } finally {
@@ -175,4 +251,12 @@ export class VgkViewComponent {
         return 'Неизвестный статус';
     }
   }
+
+
+  toogleFunction(): void {
+    this.isReadOnly ? this.isReadOnly = false : this.isReadOnly = true;
+    this.isDisabled ? this.isDisabled = false : this.isDisabled = true;
+    this.isReadOnly ? this.isEdit = 'Редактировать'  : this.isEdit = 'Сохранить'
+  }
+
 }

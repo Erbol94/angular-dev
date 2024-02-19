@@ -105,7 +105,7 @@ export class VgkComponent {
         'status',
         'customsDepartment',
       ],
-      sortBy: ['id'],
+      sortBy: null,
       data: {
         _domain: null,
         _domainContext: {

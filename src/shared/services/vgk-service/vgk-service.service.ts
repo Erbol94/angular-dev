@@ -17,6 +17,8 @@ export class VgkServiceService {
     return this.http.post(urlId,this.bodyById).pipe(catchError(this.handleError));
   }
 
+  
+
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
       console.error('An error occurred:', error.error);

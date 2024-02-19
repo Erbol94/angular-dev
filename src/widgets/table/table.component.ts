@@ -73,7 +73,6 @@ export class TableComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.fetchData();
-    
   }
 
   fetchData(): void {
