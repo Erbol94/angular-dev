@@ -1,0 +1,299 @@
+<div class="container">
+
+    <div class="header">
+      <button class="btn btn-primary mb-3 " style="margin-right: 10px;" (click)="toogleFunction()">{{isEdit}}</button>
+      <button class="btn btn-dark mb-3" (click)="onSave()">Изменить</button>
+    </div>
+  
+    <div class="card mb-4">
+      <div class="card-header">Форма просмотра</div>
+  
+      <div
+        class="spinner-container d-flex justify-content-center align-items-center mt-4"
+        *ngIf="isLoading"
+      >
+        <mat-spinner></mat-spinner>
+      </div>
+  
+      <form [formGroup]="photoForm">
+        <div class="card-body" *ngIf="!isLoading">
+          <div class="container form-view mb-4">
+              <div class="row mb-3">
+                <div class="col-md-6 d-flex flex-column">
+                  <label class="form-label" for="Id">Номер АТС</label>
+                  <input
+                    class="form-control"
+                    style="width: 30%"
+                    type="text"
+                    value="{{ data?.vehicleNumber }}"
+                    id="vehicleNumber"
+                    [class.readOnly]="isReadOnly"
+                    formControlName="vehicleNumber"
+                    [readOnly]="isReadOnly"
+                  />
+                </div>
+      
+                <div class="col-md-6 d-flex flex-column">
+                  <label class="form-label" for="Title"
+                    >Страна АТС</label
+                  >
+                  <input
+                    class="form-control"
+                    style="width: 30%"
+                    type="text"
+                    value="{{ data?.vehicleCountry }}"
+                    id="vehicleCountry"
+                    [class.readOnly]="isReadOnly"
+                    formControlName="vehicleCountry"
+                    [readOnly]="isReadOnly"
+                  />
+                </div>
+      
+                <div class="divider col-md-12"></div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-md-6 d-flex flex-column">
+                  <label class="form-label" for="Id">Модель ТС</label>
+                  <input
+                    class="form-control"
+                    style="width: 30%"
+                    type="text"
+                    value="{{ data?.vehicleModel }}"
+                    id="vehicleModel"
+                    [class.readOnly]="isReadOnly"
+                    [readOnly]="isReadOnly"
+                    formControlName="vehicleModel"
+                  />
+                </div>
+      
+                <div class="col-md-6 d-flex flex-column">
+                  <label class="form-label" for="Title">Тип АТС</label>
+                  <input
+                    class="form-control"
+                    style="width: 30%"
+                    type="text"
+                    value="{{ data?.vehicleType }}"
+                    id="vehicleType"
+                    [class.readOnly]="isReadOnly"
+                    [readOnly]="isReadOnly"
+                  />
+                </div>
+      
+                <div class="divider col-md-12"></div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-md-6 d-flex flex-column">
+                  <label class="form-label" for="Id">Цвет АТС</label>
+                  <input
+                    class="form-control"
+                    style="width: 30%"
+                    type="text"
+                    value="{{ data?.vehicleColor }}"
+                    id="vehicleColor"
+                    [class.readOnly]="isReadOnly"
+                    [readOnly]="isReadOnly"
+                    formControlName="vehicleColor"
+                  />
+                </div>
+      
+                <div class="col-md-6 d-flex flex-column">
+                  <label class="form-label" for="Title">Камера</label>
+                  <input
+                    class="form-control"
+                    style="width: 30%"
+                    type="datetime"
+                    value="{{ data?.camera?.name }}"
+                    id="camera"
+                    [class.readOnly]="isReadOnly"
+                    [readOnly]="isReadOnly"
+                  />
+                </div>
+      
+                <div class="divider col-md-12"></div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-md-6 d-flex flex-column">
+                  <label class="form-label" for="Id">Время снимка</label>
+                  <input
+                    class="form-control"
+                    style="width: 30%"
+                    type="text"
+                    value="{{ data?.snapshotTime }}"
+                    id="snapshotTime"
+                    [class.readOnly]="isReadOnly"
+                    [readOnly]="isReadOnly"
+                  />
+                </div>
+      
+                <div class="col-md-6 d-flex flex-column">
+                  <label class="form-label" for="Title">Фото АТС</label>
+                  <img
+                    [src]="image"
+                    style="width: 150px;height: 150; object-fit: cover; border: 1px solid;"
+                    [alt]="data?.vehiclePhoto?.fileName"
+                  />
+                  
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-md-6 d-flex flex-column">
+                  <label class="form-label" for="Id">Фото номера АТС</label>
+                  <img
+                    [src]="data?.vehiclePhotoLicensePlate"
+                    style="width: 100px; border: 1px solid; height: 100px"
+                    [alt]="data?.vehiclePhotoLicensePlate"
+                  />
+                </div>
+
+                <div class="col-md-6 d-flex flex-column">
+                    <label class="form-label" for="Id">Наименование фотографии</label>
+                    <input
+                      class="form-control"
+                      style="width: 30%"
+                      type="text"
+                      value="{{ data?.syscode }}"
+                      id="status"
+                      [class.readOnly]="isReadOnly"
+                      [readOnly]="isReadOnly"
+                      formControlName="syscode"
+                    />
+                  </div>
+
+              </div>
+           
+          </div>
+        </div>
+    
+        <div class="divider mb-4" style="border: 1px solid #fcfcfc"></div>
+    
+        <div class="card-body" *ngIf="!isLoading">
+          <div class="container form-view mb-4">
+            <div class="row mb-3">
+              <div class="col-md-6 d-flex flex-column">
+                <label class="form-label" for="Id">Таможенный орган</label>
+                <input
+                  class="form-control"
+                  style="width: 30%"
+                  type="text"
+                  value="{{ data?.customsDepartment?.fullName}}"
+                  id="customsDepartment"
+                  [class.readOnly]="isReadOnly"
+                  [readOnly]="isReadOnly"
+                />
+              </div>
+    
+              <div class="col-md-6 d-flex flex-column">
+                <label class="form-label" for="Title">Направление движения АТС</label>
+                <input
+                  class="form-control"
+                  style="width: 30%"
+                  type="text"
+                  value="{{ data?.directionMovVehicle }}"
+                  id="modifierType"
+                  [class.readOnly]="isReadOnly"
+                  [readOnly]="isReadOnly"
+                  formControlName="directionMovVehicle"
+                />
+              </div>
+    
+              <div class="divider col-md-12"></div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6 d-flex flex-column">
+                <label class="form-label" for="Id">Время создания</label>
+                <input
+                  class="form-control"
+                  style="width: 30%"
+                  type="datetime"
+                  value="{{ data?.createTime }}"
+                  id="createTime"
+                  [class.readOnly]="isReadOnly"
+                  [readOnly]="isReadOnly"
+                  formControlName="createTime"
+                />
+              </div>
+    
+              <div class="col-md-6 d-flex flex-column">
+                <label class="form-label" for="Title">Время обновления</label>
+                <input
+                  class="form-control"
+                  style="width: 30%"
+                  type="text"
+                  value="{{ data?.updateTime }}"
+                  id="updateTime"
+                  [class.readOnly]="isReadOnly"
+                  [readOnly]="isReadOnly"
+                  formControlName="updateTime"
+                />
+              </div>
+    
+              <div class="divider col-md-12"></div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-12 d-flex flex-column">
+                <label class="form-label" for="Id">Время удаления</label>
+                <input
+                  class="form-control"
+                  style="width: 30%"
+                  type="text"
+                  value="{{ data?.removedTime }}"
+                  id="removedTime"
+                  [class.readOnly]="isReadOnly"
+                  [readOnly]="isReadOnly"
+                  formControlName="removedTime"
+                />
+              </div>
+    
+              <div class="divider col-md-12"></div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6 d-flex flex-column">
+                <label class="form-label" for="overload">Удален</label>
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="removed"
+                  [checked]="data?.removed"
+                  [disabled]="isDisabled"
+                />
+              </div>
+    
+              <div class="col-md-6 d-flex flex-column">
+                <label class="form-label" for="Title">Кем удалено</label>
+                <input
+                  class="form-check-input"
+                  type="text"
+                  value="{{ data?.removedBy }}"
+                  id="removedBy"
+                  [checked]="data?.removedBy"
+                  [disabled]="isDisabled"
+                  formControlName="removedBy"
+                />
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6 d-flex flex-column">
+                <label class="form-label" for="Id">Способ записи</label>
+                <input
+                  class="form-control"
+                  style="width: 30%"
+                  type="text"
+                  value="{{ data?.recordingMethod }}"
+                  id="recordingMethod"
+                  [class.readOnly]="isReadOnly"
+                  [readOnly]="isReadOnly"
+                  formControlName="recordingMethod"
+                />
+              </div>
+              
+            </div>
+    
+            <a href="/photo-recording" class="btn btn-primary">Назад</a>
+          </div>
+        </div>
+      </form>
+  
+    </div>
+  </div>
+  

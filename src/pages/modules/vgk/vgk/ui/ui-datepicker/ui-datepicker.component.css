@@ -1,0 +1,15 @@
+#datepicker {
+  height: 36px;
+}
+#datepicker .custom-input,
+#datepicker .custom-toggle {
+  height: 36px !important;
+}
+#datepicker .custom-datepicker {
+  height: 100%;
+  font-size: 14px;
+}
+#datepicker .container-mat-datepicker {
+  border: 1px solid #DEE2E6;
+  border-radius: 0px 6px 6px 0px;
+}/*# sourceMappingURL=ui-datepicker.component.css.map */

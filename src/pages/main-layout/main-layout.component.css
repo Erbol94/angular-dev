@@ -1,0 +1,9 @@
+.main-container {
+  width: 100% !important;
+  background-color: #FAFAFA;
+}
+.main-container .content-container {
+  overflow-y: auto;
+  height: 86%;
+  padding: 10px;
+}/*# sourceMappingURL=main-layout.component.css.map */

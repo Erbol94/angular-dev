@@ -15,6 +15,7 @@ import { VgkPhotoComponent } from '../pages/modules/vgk/vgk-photo/vgk-photo.comp
 import { VgkDownhilldComponent } from '../pages/modules/vgk/vgk-downhilld/vgk-downhilld.component';
 import { VgkVehicleTstkComponent } from '../pages/modules/vgk/vgk-vehicle-tstk/vgk-vehicle-tstk.component';
 import { PhotoRecordingComponent } from '../pages/modules/photo-recording/photo-recording.component';
+import { PhotoRecordingViewComponent } from '../pages/modules/photo-recording/photo-recording-view/photo-recording-view.component';
 
 
 export const routes: Routes = [
@@ -66,6 +67,10 @@ export const routes: Routes = [
       {
         path: 'photo-recording',
         component: PhotoRecordingComponent,
+      },
+      {
+        path: 'photo-recording-view/:id',
+        component: PhotoRecordingViewComponent,
       },
     ],
   },

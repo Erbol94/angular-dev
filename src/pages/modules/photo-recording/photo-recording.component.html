@@ -13,20 +13,78 @@
               aria-label="Recipient's username"
               aria-describedby="basic-addon2"
               style="border-radius: 36px; background: transparent; border: 1px solid #797979;"
+              [(ngModel)]="vehicleNumber"
             />
           </div>
   
           <div class="btns-group col-md-4 d-flex justify-content-end">
+            <button type="button" class="btn me-3" (click)="toggleElement()">
+              Фильтрация
+              <svg
+                [class]="rotateClass"
+                style="margin-left: 10px;"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="9"
+                viewBox="0 0 16 9"
+                fill="none"
+              >
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M7.1356 0.343597C7.36096 0.123592 7.66657 -7.28531e-07 7.98523 -7.00673e-07C8.30389 -6.72815e-07 8.60951 0.123592 8.83487 0.343597L15.6331 6.98234C15.7479 7.09059 15.8395 7.22009 15.9024 7.36327C15.9654 7.50644 15.9986 7.66044 16 7.81626C16.0013 7.97208 15.9709 8.12661 15.9105 8.27084C15.8501 8.41506 15.7609 8.54609 15.648 8.65628C15.5352 8.76646 15.401 8.8536 15.2533 8.91261C15.1056 8.97162 14.9474 9.00131 14.7878 8.99996C14.6282 8.9986 14.4706 8.96623 14.3239 8.90472C14.1773 8.84322 14.0447 8.75382 13.9339 8.64173L7.98523 2.83268L2.03661 8.64173C1.80995 8.8555 1.50639 8.97379 1.1913 8.97111C0.876207 8.96844 0.574795 8.84502 0.351982 8.62743C0.12917 8.40985 0.0027829 8.11551 4.49269e-05 7.80781C-0.00269305 7.50011 0.118435 7.20367 0.337342 6.98234L7.1356 0.343597Z"
+                  fill="black"
+                />
+              </svg>
+            </button>
   
-            <button type="button" class="btn btn-light " style="border-radius: 32px; padding: 17px 32px;"  >Добавить новый</button>
+            <button type="button" class="btn btn-light " style="border-radius: 32px; padding: 17px 32px;" (click)="navigateToAddNew()" >Добавить новый</button>
           </div>
         </div>
       </div>
     </div>
-    
+  
+    <!-- <mat-card *ngIf="isElementVisible" >
+      <mat-card-content>
+        <div class="container-fluid">
+          <div class="row mb-3">
+            <div class="col-lg-4 col-md-3 col-sm-2">
+              <label class="mb-2">Статус</label>
+              <app-ui-select [options]="statusOptions" (selectedValueChange)="onSelectedValueChange($event)"></app-ui-select>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-3 col-sm-3">
+              <label for="exampleFormControlInput1" class="form-label"
+                >Выебрите дату:</label
+              >
+              <app-ui-datepicker label="Начало года" (selectedDateChange)="onStartDateChange($event)"></app-ui-datepicker>
+            </div>
+            <div class="col-xl-2 col-lg-3 col-md-3 col-sm-3">
+              <label for="exampleFormControlInput1" class="form-label"
+                >Выебрите дату:</label
+              >
+              <app-ui-datepicker label="Конец года" (selectedDateChange)="onEndDateChange($event)"></app-ui-datepicker>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2">
+              <label class="mb-2">Время проезда:</label>
+              <div class="d-flex justify-content-between align-items-center">
+                <app-ui-radio-button [options]="options" (selectedValueChange)="onOptionChange($event)"></app-ui-radio-button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card> -->
   
     
-    <app-table></app-table>
+    <app-table
+      [displayedColumns]="displayedColumns"
+      [pageIndex]="pageIndex"
+      [pageSize]="pageSize"
+      [showFirstLastButtons]="showFirstLastButtons"
+      [url]="urlProduct"
+      [body]="bodyProduct"
+      [vehicleNumber]="vehicleNumber"
+    ></app-table>
   
   
   </div>

@@ -1,0 +1,8 @@
+label {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.form-control.readOnly {
+  border: none;
+}/*# sourceMappingURL=vgk-view.component.css.map */

@@ -1,0 +1,36 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.nav-list {
+  display: flex;
+}
+.nav-list h6 {
+  margin-left: 10px;
+}
+
+.mat-icon {
+  font-size: 1.425rem !important;
+  height: 1.425rem !important;
+  width: 1.425rem !important;
+}
+
+.expanded {
+  width: 270px;
+  padding: 64px 0px 0px 0px;
+  transition: all 500ms ease-in-out;
+}
+
+.collapsed {
+  padding: 64px 0px 0px 0px;
+  width: 65px;
+  transition: all 500ms ease-in-out;
+}
+
+.mat-list-item-submenu {
+  margin-left: 20px;
+}
+
+.arrow-button {
+  margin-top: 6px;
+}/*# sourceMappingURL=navbar.component.css.map */

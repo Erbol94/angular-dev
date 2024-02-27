@@ -1,29 +1,61 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { TableComponent } from './table/table.component';
-import { FakeApiService } from '../vgk/vgk/fake-api.service';
 
+export interface PhotoRecording {
+  createTime: string;
+  createdOn: number;
+  id: number;
+  recordingMethod: string;
+  vehicleNumber: string;
+  camera: {
+    name: string;
+    id: number;
+  };
+  version: number;
+}
 
 @Component({
   selector: 'app-photo-recording',
   standalone: true,
-  imports: [TableComponent],
+  imports: [FormsModule, TableComponent],
   templateUrl: './photo-recording.component.html',
-  styleUrl: './photo-recording.component.scss'
+  styleUrl: './photo-recording.component.scss',
 })
 export class PhotoRecordingComponent {
+  constructor(private router: Router) {}
 
-  service: FakeApiService = inject(FakeApiService);
-  dataSource: any;
+  // Таблица и пагинация
+  dataSource!: MatTableDataSource<PhotoRecording>;
+  vehicleNumber: string = '';
 
-  url = 'http://192.168.0.82:8080/smart-customs/ws/rest/com.axelor.apps.registration.db.PhotoRecording/search';
+  displayedColumns = [
+    'id',
+    'createTime',
+    'vehicleNumber',
+    'snapshotTime',
+    'camera.name',
+    'recordingMethod',
+    'createdOn',
+  ];
+
+  pageSize = 8;
+  pageIndex = 0;
+  showFirstLastButtons = false;
+
+  urlProduct =
+    'http://192.168.0.82:8080/smart-customs/ws/rest/com.axelor.apps.registration.db.PhotoRecording/search';
+
   bodyProduct = {
     fields: [
-      "createTime",
-      "vehicleNumber",
-      "snapshotTime",
-      "camera",
-      "recordingMethod",
-      "createdOn"
+      'createTime',
+      'vehicleNumber',
+      'snapshotTime',
+      'camera',
+      'recordingMethod',
+      'createdOn',
     ],
     sortBy: null,
     data: {
@@ -40,8 +72,22 @@ export class PhotoRecordingComponent {
     translate: true,
   };
 
-  constructor(){  
+  // Таблица и пагинация
+
+  // Переход на страницу photo-recording-add
+  navigateToAddNew() {
+    this.router.navigate(['/photo-recording-add']);
+  }
+  // Переход на страницу photo-recording-add
+
+  // скрыть и отркыть филтрацию
+  isElementVisible: boolean = false;
+  rotateClass: string = '';
+
+  toggleElement() {
+    this.isElementVisible = !this.isElementVisible;
+    this.rotateClass = this.isElementVisible ? 'rotate-element' : '';
   }
 
-
+  // скрыть и отркыть филтрацию
 }

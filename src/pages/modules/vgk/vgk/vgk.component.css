@@ -1,0 +1,37 @@
+table {
+  width: 100%;
+}
+
+.mat-mdc-card {
+  margin-bottom: 15px;
+}
+
+.mat-mdc-form-field {
+  margin-right: 15px;
+}
+
+.rotate-element {
+  transform: rotate(0.5turn);
+}
+
+.slide-down-enter {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.slide-down-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.slide-down-leave {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slide-down-leave-active {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 0.3s, transform 0.3s;
+}/*# sourceMappingURL=vgk.component.css.map */
